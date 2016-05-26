@@ -2,10 +2,14 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import Widget from '../components/Widget';
 import Box from './Box'
+import Button from '../components/Button'
+import New from '../components/New'
+var data = require('json!../../MOCK_DATA1.json');
 // import SelectBox from './SelectBox';
 // import ReportBox from './ReportBox';
 
 // <NavComponent  />
+// console.log(data[0].email)
 
 export default class App extends React.Component {
   constructor(){
@@ -30,30 +34,16 @@ export default class App extends React.Component {
       blue: ReactDOM.findDOMNode(this.refs.blue.refs.inp).value
       })
   }
-  componentWillUnmount(){
-    console.log('bye!')
-  }
+
+
   render(){
-    var text;
-    if(this.state.thing === true){
-      text = <Box />
-    } else {
-      text = <Widget />
-    }
+
     return (
       <div>
+        <Button buttonClick={this.buttonClick} />
+        <Widget ref="red" onChange={this.update} />
+        <New data={data}/>
 
-
-          <Widget ref='red' update={this.update} buttonClick={this.buttonClick}/>
-          <Widget ref='green' update={this.update} buttonClick={this.buttonClick}/>
-          <Widget ref='blue' update={this.update} buttonClick={this.buttonClick}/>
-
-          {this.state.red}
-          <hr />
-          {this.state.green}
-          <hr />
-          {this.state.blue}
-        {text}
 
       </div>
     );

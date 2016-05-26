@@ -4,9 +4,7 @@ export default class Box extends Component {
   constructor(props){
     super(props)
   }
-  componentWillUnmount(){
-    console.log('bye')
-  }
+
 
 
   render(){

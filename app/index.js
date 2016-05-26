@@ -6,6 +6,10 @@ import App from './containers/App'
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 
 render(
+
   <App />,
   document.getElementById("app")
 )
+
+
+//   "plugins": ["transform-remove-console"]
