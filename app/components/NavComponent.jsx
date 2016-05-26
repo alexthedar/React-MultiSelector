@@ -8,11 +8,7 @@ export default class NavComponent extends React.Component{
   constructor(props){
     super(props);
   }
-    handleClick (e) {
-      this.props.onSelect(this.props.id);
-    }
     render(){
-      const className = this.props.active ? 'active' : null;
     return(
       <div >
           <Navbar >
@@ -23,7 +19,7 @@ export default class NavComponent extends React.Component{
               <Navbar.Toggle />
             </Navbar.Header>
             <Navbar.Collapse>
-              <Nav onClick={this.props.update}>
+              <Nav >
                 <NavItem  txt='select' eventKey={1} >
                     SelectBox
                 </NavItem>
