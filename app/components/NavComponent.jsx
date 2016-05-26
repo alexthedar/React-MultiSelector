@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Nav, MenuItem, NavDropdown, NavItem, Breadcrumb } from 'react-bootstrap';
+import { Navbar, Nav, MenuItem, NavDropdown, NavItem } from 'react-bootstrap';
 
 
 
@@ -20,18 +20,17 @@ export default class NavComponent extends React.Component{
             </Navbar.Header>
             <Navbar.Collapse>
               <Nav >
-                <NavItem  txt='select' eventKey={1} >
+                <NavItem  onClick={this.props.buttonClick} value='select' >
                     SelectBox
                 </NavItem>
-                <NavItem  txt='report' eventKey={2} >
+                <NavItem  onClick={this.props.buttonClick} value='report' >
                     ReportBox
                 </NavItem>
                 <NavItem eventKey={2} href="#">{this.props.txt}</NavItem>
               </Nav>
             </Navbar.Collapse>
           </Navbar>
-          {/*<Widget txt={this.state.txt} update={this.update} />
-          <button onClick={this.props.onClick}>{this.props.text}</button>*/}
+
       </div>
     )
   }

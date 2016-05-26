@@ -16,15 +16,23 @@ export default class App extends React.Component {
     this.buttonClick = this.buttonClick.bind(this)
   }
   buttonClick(e){
-    this.setState({thing: !this.state.thing})
+    e.preventDefault();
+    this.setState({activeComponent: e.target.value})
   }
 
 
   render(){
-
+    var active;
+    if(this.state.activeComponent === 'report') {
+      active = <ReportBox />
+    } else {
+      active = <SelectBox />
+    }
     return (
       <div>
-        <NavComponent activeComponent={this.buttonClick}/>
+        <NavComponent buttonClick={this.buttonClick} />
+        {active}
+        {this.state.activeComponent}
       </div>
     );
   }
