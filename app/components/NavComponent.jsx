@@ -14,7 +14,7 @@ export default class NavComponent extends React.Component{
           <Navbar >
             <Navbar.Header>
               <Navbar.Brand>
-                <a href="#">CliniPro Web Reports</a>
+                <a href="#">Brand</a>
               </Navbar.Brand>
               <Navbar.Toggle />
             </Navbar.Header>
