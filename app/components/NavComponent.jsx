@@ -26,7 +26,7 @@ export default class NavComponent extends React.Component{
                 <NavItem  onClick={this.props.buttonClick} value='report' >
                     ReportBox
                 </NavItem>
-                <NavItem eventKey={2} href="#">{this.props.txt}</NavItem>
+                <NavItem >{this.props.blarg}</NavItem>
               </Nav>
             </Navbar.Collapse>
           </Navbar>

@@ -12,6 +12,7 @@ export default class App extends React.Component {
     super();
     this.state = {
       activeComponent: 'select',
+      blarg: ''
     }
     this.buttonClick = this.buttonClick.bind(this)
   }
@@ -29,10 +30,13 @@ export default class App extends React.Component {
       active = <SelectBox />
     }
     return (
-      <div>
-        <NavComponent buttonClick={this.buttonClick} />
-        {active}
-        {this.state.activeComponent}
+      <div >
+        <NavComponent blarg={this.state.activeComponent} buttonClick={this.buttonClick} />
+        <div className="container">
+          <div className="well">
+            {active}
+          </div>
+        </div>
       </div>
     );
   }
