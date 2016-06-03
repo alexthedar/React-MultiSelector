@@ -1,39 +1,60 @@
 import React, { Component } from 'react'
-import OptionsBox from './OptionsBox'
+// import OptionsBox from './OptionsBox'
 import {FormGroup, FormControl, ControlLabel, HelpBlock, Button} from 'react-bootstrap'
 
+//fakedata functions and info
+import {FAKEDATA, datalength, dataKeys, manKeys, schema, dataObjectArray} from '../components/data'
 
-const stuff = Array.from(Array(10).keys());
+
+// const stuff = Object.keys(FAKEDATA);
+
 export default class SelectBox extends Component{
   constructor(){
     super();
     this.state = {
-      //need selected fropdown to determine option display
-      //should work similar to navbar buttons except optionsbox will determin what is showed
+      showFilters: 'true',
+      activeSelect: '22',
+      t:'ttt'
     }
-    // this.buttonClick = this.buttonClick.bind(this)
+    this.dropdownSelect = this.dropdownSelect.bind(this)
+  }
+  dropdownSelect(e){
+    e.preventDefault();
+    var value = e.currentTarget.value;
+    var filter = e.target.options[e.target.selectedIndex].dataset.filter;
+    this.replaceState({t: 'ggg'})
+debugger;
   }
 
 
+
+
   render(){
-    let options = stuff.map(option => {
-      return <option key={option} value="{option + 1}">{option + 1}</option>
-    })
+    let options = dataObjectArray.map(option => {
+      return <option key={option.props.id} value={option.props.id} data-filter={option.props.filter}>{option.props.id} - {option.props.report} - {option.props.filter.toString()}</option>
+    });
+
+
+
+
     return(
       <form>
         <FormGroup controlId="formControlsSelect">
           <ControlLabel>Label for Dropdown</ControlLabel>
-          <FormControl componentClass="select" placeholder="select">
+          <FormControl componentClass="select" placeholder="select" onChange={this.dropdownSelect} >
             {options}
           </FormControl>
-          <HelpBlock>Greyed text beneath</HelpBlock>
+          <HelpBlock>Grey text: {this.state.activeSelect}  {this.state.showFilters}</HelpBlock>
         </FormGroup>
-        <OptionsBox />
+        {/*<OptionsBox  showFilters={this.showFilters} activeSelect={this.state.activeSelect} />*/}
+        {/*{this.state.showFilters? <OptionsBox  activeSelect={this.state.activeSelect}/> : ''}*/}
+
         <br />
         <Button type="submit">
           Submit
         </Button>
       </form>
+
     )
   }
 }

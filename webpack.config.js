@@ -6,6 +6,7 @@ const parts = require('./lib/parts');
 const pkg = require('./package.json');
 const TARGET = process.env.npm_lifecycle_event;
 const webpack = require('webpack');
+// var _ = require('lodash');
 
 const PATHS = {
   app: path.join(__dirname, 'app'),
@@ -74,6 +75,10 @@ const common = {
       appMountId: 'app',
       inject: false
     })
+  //   new webpack.ProvidePlugin({
+  //   _: 'lodash'
+  // })
+
   ]
 }
 

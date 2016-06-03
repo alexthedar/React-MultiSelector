@@ -1,0 +1,103 @@
+{
+  "id": 34283,
+  "num_rows": 100,
+  "file_format": "json",
+  "name": "reports",
+  "array": true,
+  "columns": [
+    {
+      "name": "id",
+      "type": "Row Number",
+      "formula": ""
+    },
+    {
+      "name": "report",
+      "type": "Words",
+      "min": 1,
+      "max": 3,
+      "formula": ""
+    },
+    {
+      "name": "filter",
+      "type": "Boolean",
+      "formula": ""
+    },
+    {
+      "name": "checkbox.show",
+      "type": "Boolean",
+      "formula": ""
+    },
+    {
+      "name": "checkbox.multi",
+      "type": "Boolean",
+      "formula": ""
+    },
+    {
+      "name": "checkbox.amount",
+      "type": "Number",
+      "min": 1,
+      "max": 5,
+      "decimals": 0,
+      "formula": ""
+    },
+    {
+      "name": "checkbox.labels[5]",
+      "type": "Words",
+      "min": 1,
+      "max": 3,
+      "formula": ""
+    },
+    {
+      "name": "radiobutton.show",
+      "type": "Boolean",
+      "formula": ""
+    },
+    {
+      "name": "radiobutton.amount",
+      "type": "Number",
+      "min": 1,
+      "max": 5,
+      "decimals": 0,
+      "formula": ""
+    },
+    {
+      "name": "radiobutton.labels[5]",
+      "type": "Words",
+      "min": 1,
+      "max": 3,
+      "formula": ""
+    },
+    {
+      "name": "dropdown.show",
+      "type": "Boolean",
+      "formula": ""
+    },
+    {
+      "name": "dropdown.selection[10]",
+      "type": "Words",
+      "min": 1,
+      "max": 3,
+      "formula": ""
+    },
+    {
+      "name": "datepicker.start",
+      "type": "Boolean",
+      "formula": ""
+    },
+    {
+      "name": "datepicker.end",
+      "type": "Boolean",
+      "formula": ""
+    },
+    {
+      "name": "search",
+      "type": "Boolean",
+      "formula": ""
+    },
+    {
+      "name": "textinput",
+      "type": "Boolean",
+      "formula": ""
+    }
+  ]
+}
