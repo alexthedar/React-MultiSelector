@@ -1,10 +1,9 @@
 "use strict";
 import React, { Component } from 'react'
 
-
-export const FAKEDATA = require('json!../../FAKEDATA.json');
-export const schema = require('json!../../reports.schema.json');
-export const manSchema = require('json!../../man.schema.json');
+export const FAKEDATA = require('json!../../fakedata/FAKEDATA.json');
+export const schema = require('json!../../fakedata/reports.schema.json');
+export const manSchema = require('json!../../fakedata/man.schema.json');
 export const datalength = Object.keys(FAKEDATA).length;
 
 export const dataKeys = [];

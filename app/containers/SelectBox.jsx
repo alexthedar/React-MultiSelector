@@ -13,8 +13,7 @@ export default class SelectBox extends Component{
     super();
     this.state = {
       showFilters: 'true',
-      activeSelect: '22',
-      t:'ttt'
+      activeSelect: '22'
     }
     this.dropdownSelect = this.dropdownSelect.bind(this)
   }
@@ -22,8 +21,8 @@ export default class SelectBox extends Component{
     e.preventDefault();
     var value = e.currentTarget.value;
     var filter = e.target.options[e.target.selectedIndex].dataset.filter;
-    this.replaceState({t: 'ggg'})
-debugger;
+    this.setState({ showFilters: filter,
+                    activeSelect: value});
   }
 
 
@@ -44,7 +43,7 @@ debugger;
           <FormControl componentClass="select" placeholder="select" onChange={this.dropdownSelect} >
             {options}
           </FormControl>
-          <HelpBlock>Grey text: {this.state.activeSelect}  {this.state.showFilters}</HelpBlock>
+          <HelpBlock>Grey text: {this.state.activeSelect} - {this.state.showFilters}</HelpBlock>
         </FormGroup>
         {/*<OptionsBox  showFilters={this.showFilters} activeSelect={this.state.activeSelect} />*/}
         {/*{this.state.showFilters? <OptionsBox  activeSelect={this.state.activeSelect}/> : ''}*/}
