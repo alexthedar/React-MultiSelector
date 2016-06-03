@@ -28,41 +28,41 @@ export default class  OptionsBox extends Component{
 }
 
 
-  let num = parseInt(this.props.activeSelect)
-  switch (num) {
-    case 1:
-
-    console.log(num);
-    break;
-    case 2:
-    {this.props.showFilters}
-    console.log(num)
-    break;
-    case 3:
-    console.log(num)
-    break;
-    case 4:
-    console.log(num)
-    break;
-    case 5:
-    console.log(num)
-    break;
-    case 6:
-    console.log(num)
-    break;
-    case 7:
-    console.log(num)
-    break;
-    case 8:
-    console.log(num)
-    break;
-    case 9:
-    console.log(num)
-    break;
-    case 10:
-    console.log(num)
-    break;
-    default:
-    console.log('default')
-    break;
-  }
+  // let num = parseInt(this.props.activeSelect)
+  // switch (num) {
+  //   case 1:
+  //
+  //   console.log(num);
+  //   break;
+  //   case 2:
+  //   {this.props.showFilters}
+  //   console.log(num)
+  //   break;
+  //   case 3:
+  //   console.log(num)
+  //   break;
+  //   case 4:
+  //   console.log(num)
+  //   break;
+  //   case 5:
+  //   console.log(num)
+  //   break;
+  //   case 6:
+  //   console.log(num)
+  //   break;
+  //   case 7:
+  //   console.log(num)
+  //   break;
+  //   case 8:
+  //   console.log(num)
+  //   break;
+  //   case 9:
+  //   console.log(num)
+  //   break;
+  //   case 10:
+  //   console.log(num)
+  //   break;
+  //   default:
+  //   console.log('default')
+  //   break;
+  // }
