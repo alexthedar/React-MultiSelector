@@ -1,3 +1,5 @@
+"use strict";
+
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 // var data = require('json!../../MOCK_DATA1.json');
@@ -33,7 +35,7 @@ export default class App extends React.Component {
       <div >
         <NavComponent blarg={this.state.activeComponent} buttonClick={this.buttonClick} />
         <div className="container">
-          <div className="well">
+          <div >
             {active}
           </div>
         </div>

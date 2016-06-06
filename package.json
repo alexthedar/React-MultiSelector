@@ -27,6 +27,7 @@
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.5.0",
     "babel-preset-react-hmre": "^1.1.1",
+    "babel-preset-stage-2": "^6.5.0",
     "clean-webpack-plugin": "^0.1.9",
     "css-loader": "0.14.5",
     "extract-text-webpack-plugin": "^1.0.1",

@@ -1,3 +1,5 @@
+"use strict";
+
 import React from 'react';
 import { Navbar, Nav, MenuItem, NavDropdown, NavItem } from 'react-bootstrap';
 
