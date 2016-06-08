@@ -1,63 +1,71 @@
 "use strict";
 
 import React, { Component } from 'react'
-import {CheckBox, RadioButton} from '../components/FormWidgets'
-
-
+import {CheckBox, RadioButton, Dropdown, Datepick, TextInput } from '../components/FormWidgets'
 
 
 export default class  OptionsBox extends Component{
   constructor(props){
     super(props);
   }
-
     render(){
-      if(!this.props.filter){
-        this.props = ''
+      var checkbox, radiobutton, dropdown, datestart, dateend, search, textinput;
+
+      if(this.props.checkbox){
+        checkbox= <CheckBox checkboxlabels={this.props.checkboxlabels}></CheckBox>
       }
-      const stuff = [];
-      if(this.props.checkboxlabels){
-        var checkboxLabelArray = this.props.checkboxlabels.split(',');
-        for(let i=0; i<checkboxLabelArray.length; i++){
-          stuff.push(React.createElement('p', null, checkboxLabelArray[i]));
-        }
+
+      if(this.props.radiobutton){
+        radiobutton= <RadioButton radiobuttonlabels={this.props.radiobuttonlabels}></RadioButton>
       }
+
+      if(this.props.dropdown){
+        dropdown= <Dropdown />
+      }
+
+      if(this.props.datestart){
+        datestart= <Datepick />
+      }
+
+      if(this.props.dateend){
+        dateend= <Datepick />
+      }
+
+      if(this.props.search){
+        search= <TextInput />
+      }
+
+      if(this.props.textinput){
+        textinput= <TextInput />
+      }
+
+
+
 
 
 
     return(
       <div >
-        #{this.props.activeSelect}    filter:{this.props.filter.toString()}    title:{this.props.report}
+        {checkbox}
         <hr />
+        {radiobutton}
         <hr />
-        <p>Labels</p>
-          <p>
-            {this.props.checkbox.toString()}
-          </p>
-          <p>
-            {this.props.checkboxlabels}
-          </p>
-        <p>{stuff}</p>
-        {this.props.radiobutton.toString()}
+        {dropdown}
         <hr />
-        {this.props.radiobuttonlabels}
+        {datestart}
+        {dateend}
         <hr />
-        {this.props.dropdown.toString()}
+        {search}
         <hr />
-        {this.props.dropdownselection}
-        <hr />
-        {this.props.datestart.toString()}
-        <hr />
-        {this.props.dateend.toString()}
-        <hr />
-        {this.props.search.toString()}
-        <hr />
-        {this.props.textinput.toString()}
-        <hr />
-        <RadioButton />
-        <hr />
-        <CheckBox />
+        {textinput}
       </div>
     )
   }
 }
+
+
+// {/*<CheckBox />
+// <RadioButton />
+// <Dropdown />
+// <Datepick />
+// <TextInput />*/}
