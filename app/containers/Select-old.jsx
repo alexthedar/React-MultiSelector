@@ -8,8 +8,6 @@ import {FormGroup, FormControl, ControlLabel, HelpBlock, Button, Form, Col, Row}
 import {FAKEDATA, datalength, dataKeys, manKeys, schema, dataObjectArray} from '../components/data'
 
 
-
-
 export default class SelectBox extends Component{
   constructor(){
     super();
@@ -106,15 +104,18 @@ export default class SelectBox extends Component{
     });
 
     return(
-        <div>
+
         <Form horizontal>
           <Row>
             <Col sm={12}>
               <ControlLabel>Label for Dropdown</ControlLabel>
             </Col>
-            <Col sm={12} md={12}>
+            <Col sm={12} md={10}>
                 <FormControl componentClass="select" placeholder="Select Report" onChange={this.dropdownSelect}>{options}
                 </FormControl>
+            </Col>
+            <Col sm={12} md={2}>
+              <Button type="button" block>Submit</Button>
             </Col>
           </Row>
           <Row>
@@ -125,7 +126,8 @@ export default class SelectBox extends Component{
           <Row>
             <Col sm={12}>
               {(this.state.showFilters === true)?
-                <div ><OptionsBox
+                <div className="well"><OptionsBox
+
                                         activeSelect={this.state.activeSelect}
                                         filter={this.state.filter}
                                         report={this.state.report}
@@ -143,7 +145,7 @@ export default class SelectBox extends Component{
             </Col>
           </Row>
         </Form>
-        </div>
+
     )
   }
 }

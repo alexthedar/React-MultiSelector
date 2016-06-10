@@ -4,10 +4,14 @@ const merge = require('webpack-merge');
 const validate = require('webpack-validator');
 const parts = require('./lib/parts');
 const pkg = require('./package.json');
-const TARGET = process.env.npm_lifecycle_event;
 const webpack = require('webpack');
+const isomorph = require('isomorph');
+var forms = require('newforms')
+var moment = require('moment');
+
 // var _ = require('lodash');
 
+const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
   app: path.join(__dirname, 'app'),
   build: path.join(__dirname, 'build'),
@@ -69,6 +73,7 @@ const common = {
     ]
   },
   plugins: [
+    new webpack.IgnorePlugin(/^(buffertools)$/),
     new HtmlWebpackPlugin({
       template: 'node_modules/html-webpack-template/index.ejs',
       title: 'react webpack dev setup',
