@@ -119,7 +119,9 @@ export default class SelectBox extends Component{
           </Row>
           <Row>
             <Col sm={12}>
-              <HelpBlock>Grey text: {this.state.activeSelect} - {this.state.showFilters.toString()}</HelpBlock>
+              <HelpBlock>
+                Grey text: {this.state.activeSelect} - {this.state.showFilters.toString()}  checkbox: {this.state.checkbox.toString()}  dropdown:   {this.state.dropdown.toString()}  radio:    {this.state.radiobutton.toString()}  search:     {this.state.search.toString()}  text:     {this.state.textinput.toString()}
+              </HelpBlock>
             </Col>
           </Row>
           <Row>

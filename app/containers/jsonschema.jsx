@@ -5,79 +5,113 @@ import Form from "react-jsonschema-form";
 //fakedata functions and info
 import {FAKEDATA, datalength, dataKeys, manKeys, dataObjectArray} from '../components/data';
 
+
+let reportTitles = dataObjectArray.map(data => {
+  var props = { ...data.props};
+  return `${props.id} - ${props.report} - ${props.filter.toString()}`
+})
+
+let testReportData = dataObjectArray[0];
+
+
+function MultipleChoicesList(data){
+
+}
+
+
 const schema = {
+  "definitions": {
+    "reportTitles":{
+      "type": "string",
+      "enum": reportTitles
+    }
+  },
   type: "object",
-  properties: {}
+  properties: {
+    "Reports": {
+      "$ref": "#/definitions/reportTitles"
+    }
+  }
 };
+
 
 
 const uiSchema =  {
 };
 
-let testReport = dataObjectArray;
 
-(function (dataObjectArray){
-  for(let i=0; i<dataObjectArray.length; i++){
-    var props = { ...dataObjectArray[i].props}
-    if(props.filter){
-      if(props.checkbox){
-        let labels = props.checkboxLabels.map(label => {
-          return `${label}`
-        })
-        schema.properties.multipleChoicesList ={
-          "type": "array",
-          "title": "TEMP TITLE",
-          "items": "string",
-          "enum": labels
-        }
-      }
-    }
-  }
-}(testReport[0]));
-
-//iterate over dataobjects to set options in selection
-// dataObjectArray.map(option => {
-//   var props = { ...option.props}
-//   return <option
-//     key={option.props.id}
-//     value={option.props.id}
-//     data-filter={option.props.filter}
-//     data-report={option.props.report}
-//     data-checkbox={option.props.checkbox}
-//     data-checkboxLabels={option.props.checkboxLabels}
-//     data-radiobutton={option.props.radiobutton}
-//     data-radiobuttonLabels={option.props.radiobuttonLabels}
-//     data-dropdown={option.props.dropdown}
-//     data-dropdownSelection={option.props.dropdownSelection}
-//     data-dateStart={option.props.dateStart}
-//     data-dateEnd={option.props.dateEnd}
-//     data-search={option.props.search}
-//     data-textinput={option.props.textinput}
-//     >{option.props.id} - {option.props.report} - {option.props.filter.toString()}
-//   </option>
-// });
+// (function(data){
+//   const props = { ...data.props};
+//
+//   if(props.filter){
+//     console.log('filters')
+//     if(props.checkbox){
+//       console.log(props.checkboxLabels)
+//     }
+//     if(props.dropdown){
+//       console.log(props.dropdownSelection)
+//     }
+//     if(props.radiobutton){
+//       console.log(props.radiobuttonLabels)
+//     }
+//     if(props.dateStart)(
+//       console.log('dateStart')
+//     )
+//     if(props.dateEnd){
+//       console.log('dateEnd')
+//     }
+//     if(props.search){
+//       console.log('search')
+//     }
+//     if(props.textinput){
+//       console.log('textinput')
+//     }
+//   } else {
+//     console.log('no filter')
+//   }
+// }(testReportData))
 
 
+// (function (data){
+//   for(let i=0; i<data.length; i++){
+//     var props = { ...data[i].props}
+//     if(props.filter){
+//       if(props.checkbox){
+//         let labels = props.checkboxLabels.map(label => {
+//           return `${label}`
+//         })
+//         schema.properties.multipleChoicesList ={
+//           "type": "array",
+//           "title": "TEMP TITLE",
+//           "items": "string",
+//           "enum": labels
+//         }
+//       }
+//     }
+//   }
+// }(testReportData[0]));
 
 
-const MyCustomWidget = (props) => {
-  return (
-    <input type="text"
-      className="custom"
-      value={props.value}
-      required={props.required}
-      onChange={(event) => props.onChange(event.target.value)} />
-  );
-};
 
-const widgets = {
-  myCustomWidget: MyCustomWidget
-};
 
-const formData = {
-  title: "First task",
-  done: true
-};
+
+
+// const MyCustomWidget = (props) => {
+//   return (
+//     <input type="text"
+//       className="custom"
+//       value={props.value}
+//       required={props.required}
+//       onChange={(event) => props.onChange(event.target.value)} />
+//   );
+// };
+//
+// const widgets = {
+//   myCustomWidget: MyCustomWidget
+// };
+const onSubmit = ({formData}) => console.log("yay I'm valid!");
+const onChange = ({formData}) => console.log(formData);
+const onError = (errors) => console.log("I have", errors.length, "errors to fix");
 
 const log = (type) => console.log.bind(console, type);
 export default class Stuff extends Component{
@@ -86,10 +120,10 @@ export default class Stuff extends Component{
     return(
       <Form schema={schema}
         uiSchema={uiSchema}
-        widgets={widgets}
+
         onChange={log("changed")}
-        onSubmit={log("submitted")}
-        onError={log("errors")} />
+        onSubmit={onSubmit}
+        onError={onError} />
     )
   }
 }
