@@ -28,7 +28,6 @@ export default class NavComponent extends React.Component{
                 <NavItem  onClick={this.props.buttonClick} value='report' >
                     ReportBox
                 </NavItem>
-                <NavItem >{this.props.blarg}</NavItem>
               </Nav>
             </Navbar.Collapse>
           </Navbar>

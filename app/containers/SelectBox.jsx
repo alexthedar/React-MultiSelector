@@ -5,115 +5,39 @@ import OptionsBox from './OptionsBox'
 import {FormGroup, FormControl, ControlLabel, HelpBlock, Button, Form, Col, Row} from 'react-bootstrap'
 
 //fakedata functions and info
-import {FAKEDATA, datalength, dataKeys, manKeys, schema, dataObjectArray} from '../components/data'
+import{ dataObjectArray } from '../components/data'
+let DATA = dataObjectArray;
 
 export default class SelectBox extends Component{
   constructor(){
     super();
     this.state = {
-      showFilters: '',
-      activeSelect: '',
-      checkbox: '',
-      checkboxlabels: '',
-      radiobutton: '',
-      radiobuttonlabels: '',
-      dropdown: '',
-      dropdownselection: '',
-      datestart: '',
-      dateend: '',
-      search: '',
-      textinput: ''
+      reportId: '',
+      reportInfo:'',
+      showFilters:''
     }
     this.dropdownSelect = this.dropdownSelect.bind(this)
-    // this.handleChange = this.handleChange.bind(this)
-    // this.handleSubmit = this.handleChange.bind(this)
   }
   dropdownSelect(e){
     e.preventDefault();
     let value = e.currentTarget.value;
-    const dataset = e.target.options[e.target.selectedIndex].dataset;
-    //retrieve states from option
-    let filter = boolConvert(dataset.filter);
-    let report = dataset.report;
-    // let filter = boolConvert(dataset.filter);
-    // let report = dataset.report;
-    // let checkbox = boolConvert(dataset.checkbox);
-    // let checkboxlabels = dataset.checkboxlabels;
-    // let radiobutton = boolConvert(dataset.radiobutton);
-    // let radiobuttonlabels = dataset.radiobuttonlabels;
-    // let dropdown = boolConvert(dataset.dropdown);
-    // let dropdownselection = dataset.dropdownselection;
-    // let datestart = boolConvert(dataset.datestart);
-    // let dateend = boolConvert(dataset.dateend);
-    // let search = boolConvert(dataset.search);
-    // let textinput = boolConvert(dataset.textinput);
-    // set states
-    this.setState({ showFilters: filter,
-                    activeSelect: value
-                  });
-    // this.setState({ showFilters: filter,
-    //                 activeSelect: value,
-    //                 report: report,
-    //                 filter: filter,
-    //                 checkbox: checkbox,
-    //                 checkboxlabels: checkboxlabels,
-    //                 radiobutton: radiobutton,
-    //                 radiobuttonlabels: radiobuttonlabels,
-    //                 dropdown: dropdown,
-    //                 dropdownselection: dropdownselection,
-    //                 datestart: datestart,
-    //                 dateend: dateend,
-    //                 search: search,
-    //                 textinput: textinput
-    //               });
-  }
-
-  handleChange (field, e) {
-    var nextState = {}
-    nextState[field] = e.target.checked
-    this.setState(nextState)
-  }
-
-  handleSubmit () {
-    if (this.refs.contactForm.isValid()) {
-      this.setState({submitted: this.refs.contactForm.getFormData()})
-    }
+    this.setState({
+      reportId: value ,
+      showFilters: DATA[value].props.filter,
+      reportInfo: DATA[value].props
+    });
   }
 
   render(){
 
-    //iterate over dataobjects to set options in selection
     let options = dataObjectArray.map(option => {
       var props = { ...option.props}
-      return <option
-        key={option.props.id}
-        value={option.props.id}
-        data-filter={option.props.filter}
-        info = {option.props}
-        >{option.props.id} - {option.props.report} - {option.props.filter.toString()}
-      </option>
+      return  <option
+                key={option.props.id}
+                value={option.props.id}
+              >{option.props.id} - {option.props.report}
+              </option>
     });
-    // let options = dataObjectArray.map(option => {
-    //   var props = { ...option.props}
-    //   return <option
-    //     key={option.props.id}
-    //     value={option.props.id}
-    //     data-filter={option.props.filter}
-    //     data-report={option.props.report}
-    //     data-checkbox={option.props.checkbox}
-    //     data-checkboxLabels={option.props.checkboxLabels}
-    //     data-radiobutton={option.props.radiobutton}
-    //     data-radiobuttonLabels={option.props.radiobuttonLabels}
-    //     data-dropdown={option.props.dropdown}
-    //     data-dropdownSelection={option.props.dropdownSelection}
-    //     data-dateStart={option.props.dateStart}
-    //     data-dateEnd={option.props.dateEnd}
-    //     data-search={option.props.search}
-    //     data-textinput={option.props.textinput}
-    //     >{option.props.id} - {option.props.report} - {option.props.filter.toString()}
-    //   </option>
-    // });
-
     return(
         <div>
         <Form horizontal>
@@ -122,26 +46,21 @@ export default class SelectBox extends Component{
               <ControlLabel>Label for Dropdown</ControlLabel>
             </Col>
             <Col sm={12} md={12}>
-                <FormControl componentClass="select" placeholder="Select Report" onChange={this.dropdownSelect}>{options}
+                <FormControl componentClass="select" placeholder="Select Report"  onChange={this.dropdownSelect}>{options}
                 </FormControl>
             </Col>
           </Row>
           <Row>
             <Col sm={12}>
               <HelpBlock>
-                Grey text: {this.state.activeSelect} - {this.state.showFilters.toString()}  checkbox: {this.state.checkbox.toString()}  dropdown:   {this.state.dropdown.toString()}  radio:    {this.state.radiobutton.toString()}  search:     {this.state.search.toString()}  text:     {this.state.textinput.toString()}
+                Grey text: {this.state.showFilters.toString()}
               </HelpBlock>
             </Col>
           </Row>
           <Row>
             <Col sm={12}>
-              {(this.state.showFilters === true)?
-                <div ><Button className="btn-block btn-primary">Submit</Button>
-                  <OptionsBox
-                                        activeSelect={this.state.activeSelect}
-                                        filter={this.state.filter}
-                                        info={this.props.info}
-                                      />
+              {(this.state.showFilters === true) ? <div><Button className="btn-block btn-primary">Submit</Button>
+                  <OptionsBox reportInfo = {this.state.reportInfo}  />
                 </div> : ''}
             </Col>
           </Row>
