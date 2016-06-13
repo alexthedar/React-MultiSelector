@@ -7,9 +7,6 @@ import {FormGroup, FormControl, ControlLabel, HelpBlock, Button, Form, Col, Row}
 //fakedata functions and info
 import {FAKEDATA, datalength, dataKeys, manKeys, schema, dataObjectArray} from '../components/data'
 
-
-
-
 export default class SelectBox extends Component{
   constructor(){
     super();
@@ -35,38 +32,40 @@ export default class SelectBox extends Component{
     e.preventDefault();
     let value = e.currentTarget.value;
     const dataset = e.target.options[e.target.selectedIndex].dataset;
-
     //retrieve states from option
     let filter = boolConvert(dataset.filter);
     let report = dataset.report;
-    let checkbox = boolConvert(dataset.checkbox);
-    let checkboxlabels = dataset.checkboxlabels;
-    let radiobutton = boolConvert(dataset.radiobutton);
-    let radiobuttonlabels = dataset.radiobuttonlabels;
-    let dropdown = boolConvert(dataset.dropdown);
-    let dropdownselection = dataset.dropdownselection;
-    let datestart = boolConvert(dataset.datestart);
-    let dateend = boolConvert(dataset.dateend);
-    let search = boolConvert(dataset.search);
-    let textinput = boolConvert(dataset.textinput);
-
-
+    // let filter = boolConvert(dataset.filter);
+    // let report = dataset.report;
+    // let checkbox = boolConvert(dataset.checkbox);
+    // let checkboxlabels = dataset.checkboxlabels;
+    // let radiobutton = boolConvert(dataset.radiobutton);
+    // let radiobuttonlabels = dataset.radiobuttonlabels;
+    // let dropdown = boolConvert(dataset.dropdown);
+    // let dropdownselection = dataset.dropdownselection;
+    // let datestart = boolConvert(dataset.datestart);
+    // let dateend = boolConvert(dataset.dateend);
+    // let search = boolConvert(dataset.search);
+    // let textinput = boolConvert(dataset.textinput);
     // set states
     this.setState({ showFilters: filter,
-                    activeSelect: value,
-                    report: report,
-                    filter: filter,
-                    checkbox: checkbox,
-                    checkboxlabels: checkboxlabels,
-                    radiobutton: radiobutton,
-                    radiobuttonlabels: radiobuttonlabels,
-                    dropdown: dropdown,
-                    dropdownselection: dropdownselection,
-                    datestart: datestart,
-                    dateend: dateend,
-                    search: search,
-                    textinput: textinput
+                    activeSelect: value
                   });
+    // this.setState({ showFilters: filter,
+    //                 activeSelect: value,
+    //                 report: report,
+    //                 filter: filter,
+    //                 checkbox: checkbox,
+    //                 checkboxlabels: checkboxlabels,
+    //                 radiobutton: radiobutton,
+    //                 radiobuttonlabels: radiobuttonlabels,
+    //                 dropdown: dropdown,
+    //                 dropdownselection: dropdownselection,
+    //                 datestart: datestart,
+    //                 dateend: dateend,
+    //                 search: search,
+    //                 textinput: textinput
+    //               });
   }
 
   handleChange (field, e) {
@@ -90,20 +89,30 @@ export default class SelectBox extends Component{
         key={option.props.id}
         value={option.props.id}
         data-filter={option.props.filter}
-        data-report={option.props.report}
-        data-checkbox={option.props.checkbox}
-        data-checkboxLabels={option.props.checkboxLabels}
-        data-radiobutton={option.props.radiobutton}
-        data-radiobuttonLabels={option.props.radiobuttonLabels}
-        data-dropdown={option.props.dropdown}
-        data-dropdownSelection={option.props.dropdownSelection}
-        data-dateStart={option.props.dateStart}
-        data-dateEnd={option.props.dateEnd}
-        data-search={option.props.search}
-        data-textinput={option.props.textinput}
+        info = {option.props}
         >{option.props.id} - {option.props.report} - {option.props.filter.toString()}
       </option>
     });
+    // let options = dataObjectArray.map(option => {
+    //   var props = { ...option.props}
+    //   return <option
+    //     key={option.props.id}
+    //     value={option.props.id}
+    //     data-filter={option.props.filter}
+    //     data-report={option.props.report}
+    //     data-checkbox={option.props.checkbox}
+    //     data-checkboxLabels={option.props.checkboxLabels}
+    //     data-radiobutton={option.props.radiobutton}
+    //     data-radiobuttonLabels={option.props.radiobuttonLabels}
+    //     data-dropdown={option.props.dropdown}
+    //     data-dropdownSelection={option.props.dropdownSelection}
+    //     data-dateStart={option.props.dateStart}
+    //     data-dateEnd={option.props.dateEnd}
+    //     data-search={option.props.search}
+    //     data-textinput={option.props.textinput}
+    //     >{option.props.id} - {option.props.report} - {option.props.filter.toString()}
+    //   </option>
+    // });
 
     return(
         <div>
@@ -127,21 +136,13 @@ export default class SelectBox extends Component{
           <Row>
             <Col sm={12}>
               {(this.state.showFilters === true)?
-                <div ><OptionsBox
+                <div ><Button className="btn-block btn-primary">Submit</Button>
+                  <OptionsBox
                                         activeSelect={this.state.activeSelect}
                                         filter={this.state.filter}
-                                        report={this.state.report}
-                                        checkbox={this.state.checkbox}
-                                        checkboxlabels={this.state.checkboxlabels}
-                                        radiobutton={this.state.radiobutton}
-                                        radiobuttonlabels={this.state.radiobuttonlabels}
-                                        dropdown={this.state.dropdown}
-                                        dropdownselection={this.state.dropdownselection}
-                                        datestart={this.state.datestart}
-                                        dateend={this.state.dateend}
-                                        search={this.state.search}
-                                        textinput={this.state.textinput}
-                                      /></div> : ''}
+                                        info={this.props.info}
+                                      />
+                </div> : ''}
             </Col>
           </Row>
         </Form>
@@ -154,3 +155,45 @@ function boolConvert(data){
   let isTrue = (data === "true");
   return isTrue;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// {(this.state.showFilters === true)?
+//   <div ><Button className="btn-block btn-primary">Submit</Button>
+//   <OptionsBox
+//     activeSelect={this.state.activeSelect}
+//     filter={this.state.filter}
+//     report={this.state.report}
+//     checkbox={this.state.checkbox}
+//     checkboxlabels={this.state.checkboxlabels}
+//     radiobutton={this.state.radiobutton}
+//     radiobuttonlabels={this.state.radiobuttonlabels}
+//     dropdown={this.state.dropdown}
+//     dropdownselection={this.state.dropdownselection}
+//     datestart={this.state.datestart}
+//     dateend={this.state.dateend}
+//     search={this.state.search}
+//     textinput={this.state.textinput}
+//     />
+// </div> : ''}

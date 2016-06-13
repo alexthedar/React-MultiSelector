@@ -10,12 +10,26 @@ import {FAKEDATA, datalength, dataKeys, manKeys, schema, dataObjectArray} from '
 export default class  OptionsBox extends Component{
   constructor(props){
     super(props);
+    this.state = {
+    }
+    this.buildDisplay = this.buildDisplay.bind(this)
   }
+  buildDisplay(filters){
+      let columnWidth = Math.round(12/filters.length);
+      if(columnWidth < 4){
+        columnWidth = 4
+      }
+      const t =[]
+      for(filter in filters){
+        t.push(<Col md={columnWidth}>filter</Col>)
+      }
+  }
+
     render(){
-      var checkbox, radiobutton, dropdown, datestart, dateend, search, textinput;
+      debugger;
+      var checkbox, radiobutton, dropdown, datestart, dateend, search, textinput, columnWidth;
       var filters = [];
 
-      filters.push( <Button className="btn-block btn-primary">Submit</Button>)
       if(this.props.checkbox){
         filters.push(
           <CheckBox checkboxlabels={this.props.checkboxlabels}></CheckBox> )
@@ -46,11 +60,7 @@ export default class  OptionsBox extends Component{
         filters.push( <TextInput />)
       }
 
-      makeFilterColumns(filters){
-
-      }
-
-      console.log(filters)
+      const display = this.buildDisplay(filters)
     return(
       <div >
         {filters}
