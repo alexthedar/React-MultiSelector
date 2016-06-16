@@ -1,10 +1,10 @@
-"use strict";
+'use strict'
 
 import React, { Component } from 'react'
 import {Checkbox, Radio, FormGroup, FormControl, ControlLabel, HelpBlock, Form, Button, Col, InputGroup, Glyphicon, Row} from 'react-bootstrap';
 import DatePicker from 'react-bootstrap-date-picker';
 
-export class RadioButton extends Component{
+export class RadioOption extends Component{
   constructor(props){
     super(props);
   }
@@ -19,53 +19,49 @@ export class RadioButton extends Component{
     return(
       <div>
         <ControlLabel>Label</ControlLabel>
-          {radioButtons}
+          <Radio></Radio>
         <HelpBlock>Help</HelpBlock>
       </div>
     )
   }
 }
 
-export class CheckBox extends Component{
+export class CheckOption extends Component{
   constructor(props){
     super(props);
   }
   render(){
-    const checkBoxes = [];
-    if(this.props.checkboxlabels){
-      var checkboxLabelArray = this.props.checkboxlabels.split(',');
-      for(let i=0; i<checkboxLabelArray.length; i++){
-        checkBoxes.push(<Checkbox key={i}>{checkboxLabelArray[i]}</Checkbox>)
-      }
-    }
     return(
       <div>
         <ControlLabel>Label</ControlLabel>
-          {checkBoxes}
+          <Checkbox></Checkbox>
         <HelpBlock>Help</HelpBlock>
       </div>
     )
   }
 }
 
-export class Dropdown extends Component{
+export class SelectOption extends Component{
   constructor(props){
     super(props);
   }
   render(){
     const dropdownOptions = [];
-    if(this.props.dropdownSelection){
-      var dropdownSelectionArray = this.props.dropdownSelection.split(',');
-      for(let i=0; i<dropdownSelectionArray.length; i++){
-        dropdownOptions.push(<option key={i} value={dropdownSelectionArray[i]}>{dropdownSelectionArray[i]}</option>)
-      }
+    let dropdown = [];
+    var dropdownSelectionArray = this.props.dropdownSelection.split(',');
+    for(let i=0; i<dropdownSelectionArray.length; i++){
+      dropdownOptions.push(<option key={i} value={dropdownSelectionArray[i]}>{dropdownSelectionArray[i]}</option>)
     }
+    if(this.props.dropdownMulti){
+      dropdown = <FormControl componentClass="select" multiple>{dropdownOptions}</FormControl>
+    } else {
+      dropdown = <FormControl componentClass="select" >{dropdownOptions}</FormControl>
+    }
+
     return(
       <div>
         <ControlLabel>Label</ControlLabel>
-        <FormControl componentClass="select" >
-          {dropdownOptions}
-        </FormControl>
+        {dropdown}
         <HelpBlock>Help</HelpBlock>
       </div>
     )

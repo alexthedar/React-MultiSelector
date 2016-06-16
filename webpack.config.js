@@ -5,10 +5,7 @@ const validate = require('webpack-validator');
 const parts = require('./lib/parts');
 const pkg = require('./package.json');
 const webpack = require('webpack');
-const isomorph = require('isomorph');
-var forms = require('newforms')
-var moment = require('moment');
-
+const moment = require('moment')
 // var _ = require('lodash');
 
 const TARGET = process.env.npm_lifecycle_event;
@@ -16,7 +13,8 @@ const PATHS = {
   app: path.join(__dirname, 'app'),
   build: path.join(__dirname, 'build'),
   style: [
-    path.join(__dirname, 'app', 'style','main.css')
+    path.join(__dirname, 'app', 'style','main.css'),
+    path.join(__dirname, 'app', 'style','fixed-data-table.css')
   ]
 };
 
@@ -98,8 +96,8 @@ switch(TARGET){
         devtool: 'source-map',
         output: {
           path: PATHS.build,
-          filename: '[name].[chunkhash].js',
-          chunkFilename: '[chunkhash].js'
+          // filename: '[name].[chunkhash].js',
+          // chunkFilename: '[chunkhash].js'
         }
       },
       parts.clean(PATHS.build),
@@ -111,9 +109,9 @@ switch(TARGET){
         name: 'vendor',
         entries: Object.keys(pkg.dependencies)
       }),
-      parts.minify(),
-      parts.extractCSS(PATHS.style),
-      parts.purifyCSS([PATHS.app])
+      // parts.minify(),
+      parts.extractCSS(PATHS.style)
+      // , parts.purifyCSS([PATHS.app])
     );
   break;
   default:

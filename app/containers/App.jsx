@@ -1,11 +1,10 @@
-"use strict";
+'use strict'
 
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import SelectBox from './SelectBox';
 import ReportBox from './ReportBox';
 import NavComponent from '../components/NavComponent';
-
 
 export default class App extends React.Component {
   constructor(){
@@ -34,6 +33,7 @@ export default class App extends React.Component {
         <div className="container">
           <div >
             {active}
+
           </div>
         </div>
       </div>

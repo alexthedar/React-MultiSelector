@@ -1,5 +1,9 @@
-node_modules
+
+coverage/
+.eslintcache
 .env
-build
-fakedata
-trashfiles
+build/
+fakedata/
+node_modules/
+trashfiles/
+devtemp/
