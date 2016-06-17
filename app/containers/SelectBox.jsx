@@ -54,12 +54,12 @@ export default class SelectBox extends Component{
       return  <option
         key={option.id}
         value={option.id}
-        >{option.id} - {option.report}
+        >{option.report}
       </option>
     });
 
     if(this.state.showFilters === true) {
-      
+
       submitButton = <Button onClick={this.handleSubmit} className="btn-block btn-primary">Submit</Button>
       filterBox = <Col className="well" smPush={1} sm={8}>
                       <OptionsBox reportInfo = {this.state.reportInfo} ref="reportFilterForm" />

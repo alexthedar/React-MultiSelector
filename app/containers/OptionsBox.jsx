@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom'
 
 // import {CheckBox, RadioButton, Dropdown, Datepick, TextInput } from '../components/FormWidgets'
 import {Button, Col, Row, Checkbox, Radio} from 'react-bootstrap'
+import {Datepick, RadioOption} from '../components/FormWidgets'
 
 
 export default class  OptionsBox extends Component{
@@ -34,80 +35,59 @@ export default class  OptionsBox extends Component{
           })
           break;
       case 'select':
-        returnFilter  = this.renderSelect('dropdown', label, filter.selectOptions)
+        returnFilter  = this.renderSelect('select', label, filter.selectOptions)
         break;
       case 'textinput':
-        returnFilter = this.renderTextInput('textinput', label)
+        returnFilter = this.renderTextInput('tinput', label)
         break;
       case 'textarea':
-        returnFilter = this.renderTextArea('textArea', label)
+        returnFilter = this.renderTextArea('tarea', label)
         break;
       case 'date':
-        returnFilter = this.renderTextArea('textArea', "DATE")
+        returnFilter = this.renderDate('date', label)
       break;
     }
     // console.log(returnFilter)
     return <div key={report + '#' + label}>{returnFilter}</div>
   }
 
-  // buildDisplay(reportInfoFiltersArray){
-  //   let arr = []
-  //
-  //   if(reportInfoFiltersArray.type === "checkbox"){
-  //     let  check = this.renderCheck('check', 'Check', {
-  //       values: reportInfoFiltersArray.checkboxLabels
-  //       , defaultCheckedValue: reportInfoFiltersArray.checkboxLabels[0]
-  //     })
-  //     arr.push(check)
-  //   }
-  //   if(reportInfoFiltersArray.radiobutton){
-  //     arr.push(radio)
-  //   }
-  //   if(reportInfoFiltersArray.dropdown){
-  //     let select  = this.renderSelect('dropdown', 'Dropdown', reportInfoFiltersArraselect.dropdownSelection)
-  //     arr.push(select)
-  //   }
-  //   if(reportInfoFiltersArray.search){
-  //     arr.push(textinput)
-  //   }
-  //   if(reportInfoFiltersArray.textinput){
-  //     arr.push(textArea)
-  //   }
-  //   let columnWidth = Math.round(12/arr.length);
-  //   if(columnWidth < 4){
-  //     columnWidth = 4
-  //   }
-  //   const columns = [];
-  //   for(let i=0; i < arr.length; i++){
-  //     columns.push(<Row key={i} >{arr[i]}</Row>)
-  //   }
-  //   return columns
-  // }
-
   isValid() {
     //push valid filters into array to check
-     var fields = ['firstName']
-    //  , 'lastName', 'phoneNumber', 'address', 'city', 'state', 'zipCode'
+     var fields =  this.props.reportInfo.filters.map(filter => {
+           return filter.label
+         })
 
      var errors = {}
-     fields.forEach(function(field) {
-       var value = trim(this.refs[field].value)
-       if (!value) {
-         errors[field] = 'This field is required'
-       }
-     }.bind(this))
-     this.setState({errors: errors})
+    //  fields.forEach(function(field) {
+    //    var value = trim(this.refs[field].value)
+    //    if (!value) {
+    //      errors[field] = 'This field is required'
+    //    }
+    //  }.bind(this))
+    //  this.setState({errors: errors})
 
      var isValid = true
-     for (var error in errors) {
-       isValid = false
-       break
-     }
+    //  for (var error in errors) {
+    //    isValid = false
+    //    break
+    //  }
      return isValid
    }
 
   getFormData() {
     //gather data from form
+    var fields =  this.props.reportInfo.filters.map(filter => {
+          return filter.label
+        })
+    var t = function(fields){
+      var o ={};
+      for(let i = 0; i < fields.length; i++){
+        o[fields[i]] = this.refs.fields[i].value
+      }
+      return o
+    }
+
+
      var data = {
        firstName: this.refs.firstName.value,
        test1: this.refs.test1.value,
@@ -118,14 +98,21 @@ export default class  OptionsBox extends Component{
    }
 
   renderTextInput(id, label) {
-     return this.renderField(id, label,
+     var t = this.renderField(id, label,
        <input type="text" className="form-control" id={id} ref={id}/>
      )
+     return t
    }
 
   renderTextArea(id, label) {
      return this.renderField(id, label,
        <textarea className="form-control" id={id} ref={id}/>
+     )
+   }
+
+  renderDate(id, label) {
+     return this.renderField(id, label,
+       <Datepick className="form-control" id={id} ref={id} />
      )
    }
   renderSelect(id, label, values) {
@@ -140,20 +127,18 @@ export default class  OptionsBox extends Component{
    }
 
   renderRadio(id, label, kwargs) {
-     var radios = kwargs.values.map(function(value) {
-       var defaultChecked = (value == kwargs.defaultCheckedValue)
-       return (
-        //  <Radio ref={id + value} name={id} value={value} defaultChecked={defaultChecked}>{value}</Radio>
-      <div className="radio">
-       <label >
-         <input type="radio"  ref={id + value} name={id} value={value} defaultChecked={defaultChecked}/>
-         {value}
-       </label>
-     </div>
-    )
-     })
+    let value = "";
+    var radios = <RadioOption ref={label} id={id} kwargs={kwargs} value={value} />
+    //  var f = kwargs.values.map(function(value) {
+    //    var defaultChecked = (value == kwargs.defaultCheckedValue)
+    //    return (
+    //      <Radio key={id + value} ref={id} name={id} value={value} defaultChecked={defaultChecked}>{value}</Radio>
+    // )
+    //  })
      return this.renderField(id, label, radios)
    }
+
+//this is rendering radios seperately on the screen but treating them as one
 
   renderCheck(id, label, kwargs) {
      var checkBoxes = kwargs.values.map(function(value) {
@@ -177,60 +162,20 @@ export default class  OptionsBox extends Component{
           {field}
         </div>
       </div>
-      // console.log(t)
       return t
     }
 
-
   render(){
     let reportInfo = this.props.reportInfo;
-    let reportFilters = { ...this.props.reportInfo.filters}
-
-    // console.log(reportInfo.filters.length)
-    // let reportFilters = (reportInfo) => {
-    //   let filterArray = []
-    //     for(var i = 0; i < reportInfo.filters.length; i++){
-    //      filterArray.push(reportInfo.filters[i])
-    //      debugger;
-    //   }
-    //   return this.buildDisplay(filterArray);
-    // }
-    // console.log(this.props.reportInfo.filters)
-    // console.log(reportFilters)
-      // function t(reportInfo){
-      // var id = reportInfo.id
-      // var report = reportInfo.report
-      // var filters = reportInfo.filters.map(filter => {
-      // });
-
-    // }
-    const filtersInColumns = this.props.reportInfo.filters.map(filter => {
-          let completeFilters = [];
-          completeFilters.push(this.makeFilter(filter, this.props.reportInfo.report));
-          return completeFilters
+    let reportFilters = this.props.reportInfo.filters.map(filter => {
+          return filter
         })
-    // (this.props.reportInfo) => {
-    //   var filters = this.props.reportInfo.filters;
-    //   var id = this.props.reportInfo.id
-    //   for(let i = 0; i < filters.length; i++){
-    //     completeFilters.push(makeFilter(filter[i], id));
-    //
-    //   }
-    // }
 
-    // this.buildDisplay(this.props.reportInfo.filters)
-    // let options = TEMPDATA.map(option => {
-    //   var props = { ...option}
-    //   return  <option
-    //     key={option.id}
-    //     value={option.id}
-    //     >{option.id} - {option.report}
-    //   </option>
-    // });
-
-    // console.log('option')
-    // console.log(filtersInColumns)
-    // console.log(reportInfo)
+    const filtersInColumns = this.props.reportInfo.filters.map(filter => {
+            let completeFilters = [];
+            completeFilters.push(this.makeFilter(filter, this.props.reportInfo.report));
+            return completeFilters
+          })
     return(
       <div  >
         {filtersInColumns}
@@ -238,8 +183,6 @@ export default class  OptionsBox extends Component{
     )
   }
 }
-
-
 
 //utils
 var trim = function() {
