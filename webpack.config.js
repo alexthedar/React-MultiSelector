@@ -1,34 +1,31 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
-const validate = require('webpack-validator');
-const parts = require('./lib/parts');
+const NpmInstallPlugin = require('npm-install-webpack-plugin');
 const pkg = require('./package.json');
+const CleanPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
-const moment = require('moment')
-// const bootstrap = require('bootstrap')
-// var _ = require('lodash');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const validate = require('webpack-validator');
+
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
   app: path.join(__dirname, 'app'),
   build: path.join(__dirname, 'build'),
-  style:[
-      path.join(__dirname, 'app/style/main.css')
-    // , path.join(__dirname, 'app', 'style','bootstrap.css')
-    // , path.join(__dirname, 'app', 'style','fixed-data-table.css')
-  ]
+  style: path.join(__dirname, 'app/main.css')
 };
 
 process.env.BABEL_ENV = TARGET;
 
+var config;
 
 const common = {
-  resolve: {
-  extensions: ['', '.js', '.jsx', '.css', '.png','.jpg', '.woff2','.woff', '.ttf','.eot', '.svg']
-  },
   entry: {
-    style: PATHS.style,
-    app: PATHS.app
+    app: PATHS.app,
+    style: PATHS.style
+  },
+  resolve: {
+    extensions: ['','.js','.jsx']
   },
   output: {
     path: PATHS.build,
@@ -36,38 +33,11 @@ const common = {
   },
   module: {
     loaders: [
+
       {
         test: /\.jsx?$/,
         loaders: ['babel?cacheDirectory'],
         include: PATHS.app
-      },
-      {
-        test: /\.css$/,
-        loader: "style-loader!css-loader"
-      },
-      {
-        test: /\.png$/,
-        loader: "url-loader?limit=100000"
-      },
-      {
-        test: /\.jpg$/,
-        loader: "file-loader"
-      },
-      {
-        test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&mimetype=application/font-woff'
-      },
-      {
-        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&mimetype=application/octet-stream'
-      },
-      {
-        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'file'
-      },
-      {
-        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&mimetype=image/svg+xml'
       }
     ]
   },
@@ -79,55 +49,77 @@ const common = {
       appMountId: 'app',
       inject: false
     })
-  //   new webpack.ProvidePlugin({
-  //   _: 'lodash'
-  // })
-
   ]
-}
+};
 
-var config;
-
-switch(TARGET){
-  case 'build':
-  case 'stats':
-    config = merge(
-      common,
-      {
-        devtool: 'source-map',
-        output: {
-          path: PATHS.build,
-          // filename: '[name].[chunkhash].js',
-          // chunkFilename: '[chunkhash].js'
-        }
-      },
-      parts.clean(PATHS.build),
-      parts.setFreeVariable(
-        'process.env.NODE_ENV',
-        'production'
-      ),
-      parts.extractBundle({
-        name: 'vendor',
-        entries: Object.keys(pkg.dependencies)
-      }),
-      // parts.minify(),
-      parts.extractCSS(PATHS.style)
-      // , parts.purifyCSS([PATHS.app])
-    );
-  break;
-  default:
-    config = merge(common,
-      parts.devServer({
-        host: process.env.HOST,
-        port: process.env.PORT
-      }),
-    {
-      devtool: 'eval-source-map'
+if(TARGET === 'start' || !TARGET) {
+  config = merge(common, {
+    devtool: 'eval-source-map',
+    devServer: {
+      historyApiFallback: true,
+      hot: true,
+      inline: true,
+      stats: 'errors-only',
+      host: process.env.HOST,
+      port: process.env.PORT
     },
-    parts.setupCSS(PATHS.style),
-    {
-
-    });
+    module: {
+      loaders: [
+        {
+          test: /\.css$/,
+          loaders: ['style', 'css'],
+          include: PATHS.app
+        }
+      ]
+    },
+    plugins: [
+      new webpack.HotModuleReplacementPlugin(),
+      new NpmInstallPlugin({
+        save: true // --save
+      })
+    ]
+  });
 }
 
+
+if(TARGET === 'build' || TARGET === 'stats') {
+  config = merge(common, {
+    entry: {
+      vendor: Object.keys(pkg.dependencies).filter(function(v){
+        return v !== 'alt-utils';
+      })
+    },
+    output: {
+      path: PATHS.build,
+      filename: '[name].js', //filename: '[name].[chunkhash].js',
+      // chunkFilename: '[chunkhash].js'
+    },
+    module: {
+      loaders: [
+        {
+          test: /\.css$/,
+          loader: ExtractTextPlugin.extract('style', 'css'),
+          include: PATHS.app
+        }
+      ]
+    },
+    plugins: [
+      new CleanPlugin([PATHS.build], {
+        verbose: false
+      }),
+      new ExtractTextPlugin('[name].css'),  //('[name].[chunkhash].css'),
+      new webpack.optimize.CommonsChunkPlugin({
+        names: ['vendor', 'manifest']
+      }),
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': '"production"'
+      }),
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false
+        }
+      })
+    ]
+  });
+}
 module.exports = validate(config);

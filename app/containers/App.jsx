@@ -27,6 +27,11 @@ export default class App extends React.Component {
     } else {
       // active = <SelectBox />
     }
+    var style = {
+      color: 'black',
+      fontSize: 200
+    };
+
     return (
       <div >
         <NavComponent buttonClick={this.buttonClick} />
