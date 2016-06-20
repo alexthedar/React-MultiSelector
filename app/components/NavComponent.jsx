@@ -1,9 +1,6 @@
 'use strict'
 
 import React from 'react';
-// import { Navbar, Nav, MenuItem, NavDropdown, NavItem } from 'react-bootstrap';
-
-
 
 
 export default class NavComponent extends React.Component{
@@ -12,37 +9,21 @@ export default class NavComponent extends React.Component{
   }
     render(){
     return(
-      <nav className="navbar navbar-light bg-faded">
-        <button className="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
-          &#9776;
-        </button>
-        <div className="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
-          <a className="navbar-brand" href="#">Responsive navbar</a>
+      <nav className="navbar navbar-default navbar-fixed-top">
+        <div className="container-fluid">
+          <div className="navbar-header">
+            <a className=" navbar-brand" href="#">Brand</a>
+          </div>
           <ul className="nav navbar-nav">
-            <li className="nav-item active">
-              <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+            <li>
+              <a className=" " onClick={this.props.buttonClick} value='select'>SelectBox</a>
             </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Features</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Pricing</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">About</a>
+            <li>
+              <a className=" " onClick={this.props.buttonClick} value='report'>ReportBox</a>
             </li>
           </ul>
         </div>
       </nav>
-      // <div >
-      //     <nav className="navbar navbar-fixed-top">
-      //       <div className="nav navbar-nav">
-      //         <a className="nav-item navbar-brand" href="#">Brand</a>
-      //         <a className="nav-item nav-link" onClick={this.props.buttonClick} value='select'>SelectBox</a>
-      //         <a className="nav-item nav-link" onClick={this.props.buttonClick} value='report'>ReportBox</a>
-      //       </div>
-      //     </nav>
-      // </div>
     )
   }
 }
