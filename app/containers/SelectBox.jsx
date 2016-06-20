@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react'
 import OptionsBox from './OptionsBox'
-import {FormGroup, FormControl, ControlLabel, HelpBlock, Button, Form, Col, Row} from 'react-bootstrap'
+// import {FormGroup, FormControl, ControlLabel, HelpBlock, Button, Form, Col, Row} from 'react-bootstrap'
 const jsonData = require('json!../../fakedata/FAKEDATA3.json');
 let TEMPDATA = jsonData;
 
@@ -60,10 +60,10 @@ export default class SelectBox extends Component{
 
     if(this.state.showFilters === true) {
 
-      submitButton = <Button onClick={this.handleSubmit} className="btn-block btn-primary">Submit</Button>
-      filterBox = <Col className="well" smPush={1} sm={8}>
+      submitButton = <button onClick={this.handleSubmit} className="btn-block btn-primary">Submit</button>
+      filterBox = <div className="well col-sm-4 col-sm-push-1">
                       <OptionsBox reportInfo = {this.state.reportInfo} ref="reportFilterForm" />
-                  </Col>
+                  </div>
     } else {
       submitButton = ''
       filterBox = ''
@@ -71,24 +71,24 @@ export default class SelectBox extends Component{
     }
     return(
         <div>
-        <Form horizontal>
-          <Col sm={4}>
-          <Row>
-            <ControlLabel sm={8}>Reports Label</ControlLabel>
-                <FormControl componentClass="select" placeholder="Select Report"  onChange={this.dropdownSelect}>{options}
-                </FormControl>
-          </Row>
-          <Row>
-              <HelpBlock>
+        <form>
+          <div className="col-sm-4">
+          <div className="row">
+            <label className="col-sm-8" for="reportSelect">Reports Label</label>
+                <select id="reportSelect" className="form-control" placeholder="Select Report"  onChange={this.dropdownSelect}>{options}
+                </select>
+          </div>
+          <div className="row">
+              <small className="text-muted">
                 Additional Text: {this.state.showFilters.toString()}
-              </HelpBlock>
-          </Row>
-          <Row>
+              </small>
+          </div>
+          <div className="row">
             {submitButton}
-          </Row>
-          </Col>
+          </div>
+        </div>
           {filterBox}
-        </Form>
+        </form>
         {submitted}
         </div>
     )

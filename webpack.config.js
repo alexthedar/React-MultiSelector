@@ -6,15 +6,16 @@ const parts = require('./lib/parts');
 const pkg = require('./package.json');
 const webpack = require('webpack');
 const moment = require('moment')
+// const bootstrap = require('bootstrap')
 // var _ = require('lodash');
-
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
   app: path.join(__dirname, 'app'),
   build: path.join(__dirname, 'build'),
-  style: [
-    path.join(__dirname, 'app', 'style','main.css'),
-    path.join(__dirname, 'app', 'style','fixed-data-table.css')
+  style:[
+      path.join(__dirname, 'app/style/main.css')
+    // , path.join(__dirname, 'app', 'style','bootstrap.css')
+    // , path.join(__dirname, 'app', 'style','fixed-data-table.css')
   ]
 };
 
@@ -23,7 +24,7 @@ process.env.BABEL_ENV = TARGET;
 
 const common = {
   resolve: {
-  extensions: ['', '.js', '.jsx']
+  extensions: ['', '.js', '.jsx', '.css', '.png','.jpg', '.woff2','.woff', '.ttf','.eot', '.svg']
   },
   entry: {
     style: PATHS.style,

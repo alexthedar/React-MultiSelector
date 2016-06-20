@@ -2,8 +2,8 @@
 
 import React, { Component } from 'react'
 import ReactDom from 'react-dom'
-import {Checkbox, Radio, FormGroup, FormControl, ControlLabel, HelpBlock, Form, Button, Col, InputGroup, Glyphicon, Row} from 'react-bootstrap';
-import DatePicker from 'react-bootstrap-date-picker';
+// import {Checkbox, Radio, FormGroup, FormControl, ControlLabel, HelpBlock, Form, Button, Col, InputGroup, Glyphicon, Row} from 'react-bootstrap';
+// import DatePicker from 'react-bootstrap-date-picker';
 
 // export class RadioOption extends Component{
 //   constructor(props){
@@ -21,7 +21,7 @@ import DatePicker from 'react-bootstrap-date-picker';
 //       <div>
 //         <ControlLabel>Label</ControlLabel>
 //           <Radio></Radio>
-//         <HelpBlock>Help</HelpBlock>
+//         <small className="text-muted">Help</small>
 //       </div>
 //     )
 //   }
@@ -34,9 +34,9 @@ export class CheckOption extends Component{
   render(){
     return(
       <div>
-        <ControlLabel>Label</ControlLabel>
-          <Checkbox></Checkbox>
-        <HelpBlock>Help</HelpBlock>
+        <label>Label</label>
+          <input type="checkbox" />
+        <small className="text-muted">Help</small>
       </div>
     )
   }
@@ -54,51 +54,51 @@ export class SelectOption extends Component{
       dropdownOptions.push(<option key={i} value={dropdownSelectionArray[i]}>{dropdownSelectionArray[i]}</option>)
     }
     if(this.props.dropdownMulti){
-      dropdown = <FormControl componentClass="select" multiple>{dropdownOptions}</FormControl>
+      dropdown = <select className="form-control" multiple>{dropdownOptions}</select>
     } else {
-      dropdown = <FormControl componentClass="select" >{dropdownOptions}</FormControl>
+      dropdown = <select className="form-control" >{dropdownOptions}</select>
     }
 
     return(
       <div>
-        <ControlLabel>Label</ControlLabel>
+        <label>Label</label>
         {dropdown}
-        <HelpBlock>Help</HelpBlock>
+        <small >Help</small>
       </div>
     )
   }
 }
 
-export class Datepick extends Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      value: new Date().toISOString()
-    }
-    this.handleChange=this.handleChange.bind(this)
-  }
-  handleChange(value) {
-    // value is an ISO String.
-    this.setState({
-      value: value
-    });
-  }
-  render(){
-    return <DatePicker value={this.state.value} onChange={this.handleChange} />
-  }
-}
-
-export class TextInput extends Component{
-  render(){
-    return(
-      <div>
-        <ControlLabel>Label</ControlLabel>
-        <FormControl type="text" placeholder="Enter text"/>
-        <HelpBlock>Help</HelpBlock>
-      </div>
-    )
-  }
-}
+// export class Datepick extends Component{
+//   constructor(props){
+//     super(props);
+//     this.state = {
+//       value: new Date().toISOString()
+//     }
+//     this.handleChange=this.handleChange.bind(this)
+//   }
+//   handleChange(value) {
+//     // value is an ISO String.
+//     this.setState({
+//       value: value
+//     });
+//   }
+//   render(){
+//     return <DatePicker value={this.state.value} onChange={this.handleChange} />
+//   }
+// }
+//
+// export class TextInput extends Component{
+//   render(){
+//     return(
+//       <div>
+//         <label>Label</label>
+//         <input type="text" className="form-control" placeholder="Enter text"/>
+//         <small className="text-muted">Help</small>
+//       </div>
+//     )
+//   }
+// }
 
 export class RadioOption extends React.Component{
 	constructor(props){

@@ -23,17 +23,17 @@ export default class App extends React.Component {
   render(){
     var active;
     if(this.state.activeComponent === 'report') {
-      active = <ReportBox />
+      // active = <ReportBox />
     } else {
-      active = <SelectBox />
+      // active = <SelectBox />
     }
     return (
       <div >
         <NavComponent buttonClick={this.buttonClick} />
         <div className="container">
           <div >
-            {active}
-
+            <span className="test">ssss</span>
+            {/*{active}*/}
           </div>
         </div>
       </div>

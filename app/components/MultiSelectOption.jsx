@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Multiselect from 'react-bootstrap-multiselect';
-import {ControlLabel, HelpBlock} from 'react-bootstrap';
+// import {ControlLabel, HelpBlock} from 'react-bootstrap';
 
 
 export class MultiSelectOption extends Component{
@@ -10,9 +10,9 @@ export class MultiSelectOption extends Component{
   render(){
     return(
       <div>
-        <ControlLabel>Label</ControlLabel>
-          <Multiselect onChange={this.handleChange} ref="myRef" data={this.state.myData} multiple />
-        <HelpBlock>Help</HelpBlock>
+        <label>Label</label>
+          <select className="form-control" onChange={this.handleChange} ref="myRef" data={this.state.myData} multiple></select>
+        <small className="text-muted">Help</small>
       </div>
     )
   }

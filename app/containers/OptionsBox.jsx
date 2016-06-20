@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
 // import {CheckBox, RadioButton, Dropdown, Datepick, TextInput } from '../components/FormWidgets'
-import {Button, Col, Row, Checkbox, Radio} from 'react-bootstrap'
+// import {Button, Col, Row, Checkbox, Radio} from 'react-bootstrap'
 import {Datepick, RadioOption} from '../components/FormWidgets'
 
 
@@ -146,7 +146,7 @@ export default class  OptionsBox extends Component{
        return (
       <div className="checkbox">
        <label >
-         <input type="checkbox" ref={id + value} name={id} value={value} defaultChecked={defaultChecked}/>
+         <input type="checkbox" ref={id + value} name={id} value={value} checked={defaultChecked}/>
          {value}
        </label>
      </div>
