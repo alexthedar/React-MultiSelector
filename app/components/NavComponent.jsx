@@ -9,7 +9,7 @@ export default class NavComponent extends React.Component{
   }
     render(){
     return(
-      <nav className="navbar navbar-default navbar-fixed-top">
+      <nav className="navbar navbar-default ">
         <div className="container-fluid">
           <div className="navbar-header">
             <a className=" navbar-brand" href="#">Brand</a>

@@ -1,15 +1,13 @@
 'use strict'
 
 import React, { Component } from 'react'
-import OptionsBox from './OptionsBox'
-// import {FormGroup, FormControl, ControlLabel, HelpBlock, Button, Form, Col, Row} from 'react-bootstrap'
-const jsonData = require('json!../../fakedata/FAKEDATA3.json');
-let TEMPDATA = jsonData;
+import AllFilters from './AllFilters'
 
-//fakedata functions and info
-// import{ dataObjectArray } from '../devtemp/data'
-// let DATA = dataObjectArray;
-// console.log(TEMPDATA)
+const data = require('../../mockaroodata')
+// LOAD DATA Current in Temp
+const jsonData = require('json!../../fakedata/FAKEDATA4.json');
+let DATA = jsonData;
+//end load data
 
 export default class SelectBox extends Component{
   constructor(){
@@ -28,10 +26,9 @@ export default class SelectBox extends Component{
     let value = e.currentTarget.value;
     this.setState({
       reportId: value ,
-      showFilters: (TEMPDATA[value].filters) ? true : false,
-      reportInfo: TEMPDATA[value]
+      showFilters: (DATA[value].primary_filters) ? true : false,
+      reportInfo: DATA[value]
     });
-    console.log(this.state.showFilters)
   }
 
   handleSubmit() {
@@ -40,41 +37,45 @@ export default class SelectBox extends Component{
     }
   }
 
+  getOptions(data){
+    //need id to find filters
+    return data.map((option, index) => {
+                      var props = { ...option}
+                      return  <option
+                        key={index}
+                        value={index}
+                        >{option.report_name}
+                      </option>
+                    });
+  }
+
+  getAllFilters(){
+    return <div className="well col-sm-8 col-sm-push-1">
+            <button onClick={this.handleSubmit} className="btn btn-block btn-primary">Submit</button>
+            <AllFilters handleSubmit={this.handleSubmit} reportInfo = {this.state.reportInfo} />
+          </div>
+  }
+
   render(){
-    var submitted, submitButton, filterBox, filterBoxLabel;
+    //temporary
     if (this.state.submitted !== null) {
       submitted = <div className="alert alert-success">
         <p> data:</p>
         <pre><code>{JSON.stringify(this.state.submitted, null, '  ')}</code></pre>
       </div>
     }
+    //end temp
 
-    let options = TEMPDATA.map(option => {
-      var props = { ...option}
-      return  <option
-        key={option.id}
-        value={option.id}
-        >{option.report}
-      </option>
-    });
+    var submitted, allFilters;
+    let options = this.getOptions(DATA);
+    allFilters = this.state.showFilters ? this.getAllFilters() : '';
 
-    if(this.state.showFilters === true) {
-
-      submitButton = <button onClick={this.handleSubmit} className="btn-block btn-primary">Submit</button>
-      filterBox = <div className="well col-sm-4 col-sm-push-1">
-                      <OptionsBox reportInfo = {this.state.reportInfo} ref="reportFilterForm" />
-                  </div>
-    } else {
-      submitButton = ''
-      filterBox = ''
-      filterBoxLabel = ''
-    }
     return(
         <div>
         <form>
           <div className="col-sm-4">
           <div className="row">
-            <label className="col-sm-8" for="reportSelect">Reports Label</label>
+            <label htmlFor="reportSelect">Reports Label</label>
                 <select id="reportSelect" className="form-control" placeholder="Select Report"  onChange={this.dropdownSelect}>{options}
                 </select>
           </div>
@@ -83,11 +84,8 @@ export default class SelectBox extends Component{
                 Additional Text: {this.state.showFilters.toString()}
               </small>
           </div>
-          <div className="row">
-            {submitButton}
-          </div>
         </div>
-          {filterBox}
+          {allFilters}
         </form>
         {submitted}
         </div>
@@ -95,31 +93,8 @@ export default class SelectBox extends Component{
   }
 }
 
+//convert string to bool
 function boolConvert(data){
-  let isTrue = (data === "true");
+  let isTrue = (data === 'true');
   return isTrue;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// {/*<FormGroup>*/}
-// {/*<Col sm={2}><label className="control-label"></label></Col>*/}
-// {/*<Row>*/}
-// {/*<label  className="col-sm-3 control-label">Filters</label>*/}
-// {/*</Row>*/}
-// {/*<ControlLabel>Label for Dropdown</ControlLabel>*/}
-
-// {/*</FormGroup>*/}

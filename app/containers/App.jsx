@@ -23,9 +23,9 @@ export default class App extends React.Component {
   render(){
     var active;
     if(this.state.activeComponent === 'report') {
-      // active = <ReportBox />
+      active = <ReportBox />
     } else {
-      // active = <SelectBox />
+      active = <SelectBox />
     }
     var style = {
       color: 'black',
@@ -37,8 +37,7 @@ export default class App extends React.Component {
         <NavComponent buttonClick={this.buttonClick} />
         <div className="container">
           <div >
-            <span className="test">ssss</span>
-            {/*{active}*/}
+            {active}
           </div>
         </div>
       </div>
