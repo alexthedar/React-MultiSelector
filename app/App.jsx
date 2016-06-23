@@ -2,9 +2,9 @@
 
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import SelectBox from './SelectBox';
-import ReportBox from './ReportBox';
-import NavComponent from '../components/NavComponent';
+import SelectBox from './form/containers/SelectBox.jsx';
+import ReportBox from './report/containers/ReportBox';
+import NavComponent from './NavComponent';
 
 export default class App extends React.Component {
   constructor(){

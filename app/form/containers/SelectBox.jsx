@@ -3,9 +3,9 @@
 import React, { Component } from 'react'
 import AllFilters from './AllFilters'
 
-const data = require('../../mockaroodata')
+// const data = require('../../mockaroodata')
 // LOAD DATA Current in Temp
-const jsonData = require('json!../../fakedata/FAKEDATA4.json');
+const jsonData = require('json!../../../fakedata/FAKEDATA4.json');
 let DATA = jsonData;
 //end load data
 

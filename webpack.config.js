@@ -8,6 +8,7 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const validate = require('webpack-validator');
 const update = require('react-addons-update');
+var _ = require('lodash');
 
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {

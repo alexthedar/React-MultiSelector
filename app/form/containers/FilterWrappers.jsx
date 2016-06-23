@@ -2,41 +2,58 @@
 import {CheckBox, RadioButton, DropDown} from '../components/FilterWidgets'
 import update from 'react-addons-update'
 import React, { Component } from 'react'
+import _ from 'lodash'
 
 
 export class CheckBoxWrapper extends Component{
   constructor(props){
     super(props);
     this.state={
-      isChecked: false,
       valuesArray: []
     }
     this.handleChange = this.handleChange.bind(this)
+    this.isInValuesArray = this.isInValuesArray.bind(this)
+    this.addValue = this.addValue.bind(this)
+    this.removeValue = this.removeValue.bind(this)
   }
-  isInValuesArray(){
-
+  isInValuesArray(e){
+    return _.includes(this.state.valuesArray, e.target.value)
   }
   handleChange(e){
-
+    e.preventDefault();
+    let val = e.target.value;
+    let arr = this.state.valuesArray;
+    _.includes(this.state.valuesArray, val)? this.removeValue(val, arr): this.addValue(val, arr);
   }
-  updateCheckbox(e){
+  addValue(val, arr){
     this.setState({
-      isChecked: !this.state.isChecked,
-      valuesArray: this.state.valuesArray.concat(e.target.value)
+      valuesArray: this.state.arr.concat([val])
     })
+    console.log(this.state.valuesArray)
+  }
+  removeValue(val, arr){
+    let index = _.indexOf(arr, val);
+    this.setState({
+      valuesArray: update(this.state.data, {$splice: [[index, 1]]})
+    })
+    console.log(this.state.valuesArray)
   }
   getCheckOption(){
-    var options = this.props.filterInfo.options;
-    var t = options.map((option, index) => {
-      var props = { ...option}
+    let options = this.props.filterInfo.options;
+    let t = options.map((option, index) => {
       if(option.child){
         //go find filter
       }
-      var r = <CheckBox key={index} onChange={this.handleChange} checked={this.isInValuesArray}>{option.label}</CheckBox>
-      debugger
+      //need to include a disabled
+      let r = <CheckBox
+                key={index}
+                onChange={this.handleChange}
+                label={option.label}
+                checked={this.isInValuesArray}
+                value={option.label}
+              />
       return r
     });
-    console.log(t)
     return t
   }
   render(){

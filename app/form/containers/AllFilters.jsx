@@ -1,7 +1,7 @@
 'use strict'
 
 import React, { Component } from 'react'
-import {CheckBoxWrapper, RadioButtonWrapper, DropDownWrapper} from '../components/FilterWrappers'
+import {CheckBoxWrapper, RadioButtonWrapper, DropDownWrapper} from './FilterWrappers'
 
 export default class AllFilters extends Component{
   constructor(props){
