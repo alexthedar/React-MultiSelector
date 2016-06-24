@@ -2,3 +2,6 @@
 .clickInput input{
   margin-right: 4px;
 }
+.clickInput label{
+  font-weight: normal;
+}

@@ -51,8 +51,13 @@ export default class SelectBox extends Component{
 
   getAllFilters(){
     return <div className="well col-sm-8 col-sm-push-1">
-            <button onClick={this.handleSubmit} className="btn btn-block btn-primary">Submit</button>
-            <AllFilters handleSubmit={this.handleSubmit} reportInfo = {this.state.reportInfo} />
+            <section>
+              <button onClick={this.handleSubmit} className="btn btn-block btn-primary">Submit</button>
+            </section>
+            <br />
+            <section>
+              <AllFilters handleSubmit={this.handleSubmit} reportInfo = {this.state.reportInfo} />
+            </section>
           </div>
   }
 

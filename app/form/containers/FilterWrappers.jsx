@@ -12,55 +12,54 @@ export class CheckBoxWrapper extends Component{
       valuesArray: []
     }
     this.handleChange = this.handleChange.bind(this)
-    this.isInValuesArray = this.isInValuesArray.bind(this)
     this.addValue = this.addValue.bind(this)
     this.removeValue = this.removeValue.bind(this)
   }
-  isInValuesArray(e){
-    return _.includes(this.state.valuesArray, e.target.value)
-  }
+
   handleChange(e){
-    e.preventDefault();
     let val = e.target.value;
     let arr = this.state.valuesArray;
-    _.includes(this.state.valuesArray, val)? this.removeValue(val, arr): this.addValue(val, arr);
+    _.includes(arr, val)? this.removeValue(arr, val): this.addValue(arr, val);
   }
-  addValue(val, arr){
+
+  addValue(arr, val){
+    let newArr = arr.concat([val]);
     this.setState({
-      valuesArray: this.state.arr.concat([val])
+      valuesArray: newArr
     })
-    console.log(this.state.valuesArray)
   }
-  removeValue(val, arr){
+
+  removeValue(arr, val){
     let index = _.indexOf(arr, val);
+    let newArr = update(arr, {$splice: [[index, 1]]})
     this.setState({
-      valuesArray: update(this.state.data, {$splice: [[index, 1]]})
+      valuesArray: newArr
     })
-    console.log(this.state.valuesArray)
   }
+
   getCheckOption(){
     let options = this.props.filterInfo.options;
-    let t = options.map((option, index) => {
+    return options.map((option, index) => {
       if(option.child){
         //go find filter
       }
       //need to include a disabled
-      let r = <CheckBox
+      //do i need to label + key to make a more unique identifier
+      return <CheckBox
                 key={index}
                 onChange={this.handleChange}
                 label={option.label}
-                checked={this.isInValuesArray}
-                value={option.label}
+                value={option.label+index}
+                checked={_.includes(this.state.valuesArray, option.label+index)}
               />
-      return r
     });
-    return t
   }
+
   render(){
-    let checkboxes=this.getCheckOption()
-    // console.log(checkboxes)
+    let checkboxes= this.getCheckOption()
+    console.log(this.state.valuesArray)
     return(
-      <div>{checkboxes}></div>
+      <div>{checkboxes}</div>
     )
   }
 }
@@ -69,15 +68,50 @@ export class RadioButtonWrapper extends Component{
   constructor(props){
     super(props);
     this.state={
-      value: ''
+      returnValue: ''
     }
+    this.handleChange = this.handleChange.bind(this)
   }
-  getCheckOption(){
+
+  handleChange(e){
+    let val = e.target.value;
+    (this.state.returnValue === val)? this.removeValue(val): this.addValue(val);
   }
+
+  addValue(val){
+    this.setState({
+      returnValue: val
+    })
+  }
+
+  removeValue(val){
+    this.setState({
+      returnValue: val
+    })
+  }
+
+
+  getRadioOption(){
+    let options = this.props.filterInfo.options;
+    return options.map((option, index) => {
+      if(option.child){
+        //go find filter
+      }
+      //need to include a disabled
+      return <RadioButton
+                key={index}
+                onChange={this.handleChange}
+                label={option.label}
+                value={option.label}
+                checked={this.state.returnValue === option.label}
+              />
+    });
+  }
+
   render(){
-    let checkboxes=this.getCheckOption()
+    let radiobuttons= this.getRadioOption()
     return(
-      <div>{checkboxes}></div>
+      <div>{radiobuttons}</div>
     )
   }
 }
@@ -92,9 +126,57 @@ export class DropDownWrapper extends Component{
   getCheckOption(){
   }
   render(){
-    let checkboxes=this.getCheckOption()
+    let dropdown = this.getCheckOption()
     return(
-      <div>{checkboxes}></div>
+      <div>DropDown</div>
     )
   }
+}
+
+function getOptions(wrapper){
+  // debugger
+  var type = wrapper.constructor.displayName;
+
+  let options = wrapper.props.filterInfo.options;
+  var t =  options.map((option, index) => {
+    // debugger
+    if(option.child){
+      //go find filter
+    }
+    //need to include a disabled
+    var y
+    switch (type) {
+      case 'CheckBoxWrapper':
+      y =  <CheckBox
+                key={index}
+                onChange={wrapper.handleChange}
+                label={option.label}
+                value={option.label}
+              />
+              break;
+
+      case 'RadioButtonWrapper':
+      y =  <RadioButton
+                key={index}
+                onChange={wrapper.handleChange}
+                label={option.label}
+                value={option.label}
+              />
+              break;
+
+      case 'DropDownWrapper':
+      y =  <DropDown
+                key={index}
+                onChange={wrapper.handleChange}
+                label={option.label}
+                value={option.label}
+              />
+              break;
+
+      default:
+      break;
+    }
+    return y
+  });
+  return t
 }
