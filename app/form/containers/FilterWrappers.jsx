@@ -1,8 +1,10 @@
 'use strict'
-import {CheckBox, RadioButton, DropDown} from '../components/FilterWidgets'
+import {CheckBox, RadioButton, DropDownMultiple} from '../components/FilterWidgets'
 import update from 'react-addons-update'
 import React, { Component } from 'react'
 import _ from 'lodash'
+import Select from 'react-select';
+import DatePicker from 'react-bootstrap-date-picker'
 
 
 export class CheckBoxWrapper extends Component{
@@ -57,7 +59,7 @@ export class CheckBoxWrapper extends Component{
 
   render(){
     let checkboxes= this.getCheckOption()
-    console.log(this.state.valuesArray)
+    debugger
     return(
       <div>{checkboxes}</div>
     )
@@ -75,21 +77,11 @@ export class RadioButtonWrapper extends Component{
 
   handleChange(e){
     let val = e.target.value;
-    (this.state.returnValue === val)? this.removeValue(val): this.addValue(val);
-  }
-
-  addValue(val){
+    var newVal = (this.state.returnValue === val)? '' : val;
     this.setState({
-      returnValue: val
+      returnValue: newVal
     })
   }
-
-  removeValue(val){
-    this.setState({
-      returnValue: val
-    })
-  }
-
 
   getRadioOption(){
     let options = this.props.filterInfo.options;
@@ -110,6 +102,8 @@ export class RadioButtonWrapper extends Component{
 
   render(){
     let radiobuttons= this.getRadioOption()
+    // console.log(this.state.returnValue)
+
     return(
       <div>{radiobuttons}</div>
     )
@@ -120,63 +114,86 @@ export class DropDownWrapper extends Component{
   constructor(props){
     super(props);
     this.state={
-      value: ''
+      value:{},
+      options: this.getDropdownOptions(),
+      valuesArray:[]
     }
+    this.handleSelectChange = this.handleSelectChange.bind(this)
   }
-  getCheckOption(){
+  handleSelectChange (value) {
+		this.setState({ value: value });
+		this.setState({ valuesArray: [value] });
+	}
+  getDropdownOptions(){
+    let options = this.props.filterInfo.options;
+    return options.map((option, index) => {
+      // if(option.child){
+      // }
+      return {value: option.label, label: option.label}
+    });
   }
   render(){
-    let dropdown = this.getCheckOption()
+    // console.log(this.state.valuesArray)
     return(
-      <div>DropDown</div>
+      <div>
+        <Select
+          simpleValue
+          multi={this.props.filterInfo.multi}
+          options={this.state.options}
+          onChange={this.handleSelectChange}
+          label={this.props.filterInfo.name}
+          value={this.state.value}
+          />
+      </div>
     )
   }
 }
 
-function getOptions(wrapper){
-  // debugger
-  var type = wrapper.constructor.displayName;
+export class DateWrapper extends Component{
 
-  let options = wrapper.props.filterInfo.options;
-  var t =  options.map((option, index) => {
-    // debugger
-    if(option.child){
-      //go find filter
+
+
+  constructor(props){
+    super(props);
+    this.state={
+      value: ''
     }
-    //need to include a disabled
-    var y
-    switch (type) {
-      case 'CheckBoxWrapper':
-      y =  <CheckBox
-                key={index}
-                onChange={wrapper.handleChange}
-                label={option.label}
-                value={option.label}
-              />
-              break;
-
-      case 'RadioButtonWrapper':
-      y =  <RadioButton
-                key={index}
-                onChange={wrapper.handleChange}
-                label={option.label}
-                value={option.label}
-              />
-              break;
-
-      case 'DropDownWrapper':
-      y =  <DropDown
-                key={index}
-                onChange={wrapper.handleChange}
-                label={option.label}
-                value={option.label}
-              />
-              break;
-
-      default:
-      break;
-    }
-    return y
-  });
-  return t
+    this.handleChange = this.handleChange.bind(this)
+  }
+  handleChange(value) {
+    // value is an ISO String.
+    this.setState({
+      value: value
+    });
+  }
+  render(){
+    // console.log(this.state.valuesArray)
+    return(
+      <div>
+        <DatePicker
+          value={this.state.value}
+          onChange={this.handleChange}
+          />
+      </div>
+    )
+  }
 }
+// multi={this.props.filterInfo.multi}
+// label={this.props.filterInfo.name}
+
+// function getOptions(wrapper){
+//   // debugger
+//   var type = wrapper.constructor.displayName;
+//
+//   debugger
+//   let options = wrapper.props.filterInfo.options;
+//   var filterOptions =  options.map((option, index) => {
+//     debugger
+//     if(option.child){
+//       //go find filter
+//     }
+//     //need to include a disabled
+//     return <option></option>
+//   });
+//   return filterOptions
+// }

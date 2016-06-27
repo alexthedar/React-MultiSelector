@@ -2,6 +2,9 @@
 
 import React, { Component } from 'react'
 import AllFilters from './AllFilters'
+import _ from 'lodash'
+import update from 'react-addons-update'
+
 
 // const data = require('../../mockaroodata')
 // LOAD DATA Current in Temp
@@ -27,8 +30,30 @@ export default class SelectBox extends Component{
     this.setState({
       reportId: value ,
       showFilters: (DATA[value].primary_filters) ? true : false,
-      reportInfo: DATA[value]
+      reportInfo: DATA[value],
+      selectionValues: []
     });
+  }
+
+  handleChange(e){
+    let val = e.target.value;
+    let arr = this.state.selectionValues;
+    _.includes(arr, val)? this.removeValue(arr, val): this.addValue(arr, val);
+  }
+
+  addValue(arr, val){
+    let newArr = arr.concat([val]);
+    this.setState({
+      selectionValues: newArr
+    })
+  }
+
+  removeValue(arr, val){
+    let index = _.indexOf(arr, val);
+    let newArr = update(arr, {$splice: [[index, 1]]})
+    this.setState({
+      selectionValues: newArr
+    })
   }
 
   handleSubmit() {
@@ -50,15 +75,21 @@ export default class SelectBox extends Component{
   }
 
   getAllFilters(){
-    return <div className="well col-sm-8 col-sm-push-1">
+    var t = <div className="well col-sm-8 col-sm-push-1">
             <section>
               <button onClick={this.handleSubmit} className="btn btn-block btn-primary">Submit</button>
             </section>
             <br />
             <section>
-              <AllFilters handleSubmit={this.handleSubmit} reportInfo = {this.state.reportInfo} />
+              <AllFilters
+                handleSubmit={this.handleSubmit}
+                reportInfo = {this.state.reportInfo}
+                selectionValues={this.state.selectionValues}
+                onChange={this.handleChange}/>
             </section>
           </div>
+          debugger
+          return t
   }
 
   render(){

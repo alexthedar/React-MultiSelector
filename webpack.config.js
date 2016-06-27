@@ -8,7 +8,8 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const validate = require('webpack-validator');
 const update = require('react-addons-update');
-var _ = require('lodash');
+const _ = require('lodash');
+const DatePicker = require("react-bootstrap-date-picker");
 
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
@@ -18,12 +19,11 @@ const PATHS = {
    [
       path.join(__dirname, 'app', 'style','bootstrap.css')
       ,  path.join(__dirname, 'app', 'style','main.css')
+      ,  path.join(__dirname, 'app', 'style','react-select.css')
       // , path.join(__dirname, 'app', 'style','fixed-data-table.css')
     ]
 };
-
 process.env.BABEL_ENV = TARGET;
-
 var config;
 
 const common = {

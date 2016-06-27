@@ -1,6 +1,8 @@
 'use strict'
 
 import React, { Component } from 'react'
+import Select from 'react-select';
+
 
 
 export class CheckBox extends Component{
@@ -47,21 +49,19 @@ export class RadioButton extends Component{
 export class DropDown extends Component{
   constructor(props){
     super(props);
-    this.state={
-      value: ''
-    }
-  }
-  getFilter(){
-
   }
   render(){
-    let filter=this.getFilter()
+    let multiHelp = (this.props.multi)? <small className="text-muted">Select Multiple</small> : <small className="text-muted">Select One</small>;
     return(
-      <div className="select">
-       {/*<label >
-         <input type="checkbox" name={value} value={value} checked={checked}/>
-         {value}
-       </label>*/}
+      <div>
+        <label htmlFor={this.props.label}>{this.props.label}</label>
+        <select className="form-control"
+          onChange={this.props.onChange}
+          value={this.props.value}
+          multiple={this.props.multi}
+          >{this.props.options}
+        </select>
+        {multiHelp}
      </div>
     )
   }
