@@ -59,7 +59,7 @@ export class CheckBoxWrapper extends Component{
 
   render(){
     let checkboxes= this.getCheckOption()
-    debugger
+    // debugger
     return(
       <div>{checkboxes}</div>
     )
@@ -114,7 +114,7 @@ export class DropDownWrapper extends Component{
   constructor(props){
     super(props);
     this.state={
-      value:{},
+      value:'',
       options: this.getDropdownOptions(),
       valuesArray:[]
     }

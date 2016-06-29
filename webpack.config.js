@@ -9,7 +9,10 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const validate = require('webpack-validator');
 const update = require('react-addons-update');
 const _ = require('lodash');
-const DatePicker = require("react-bootstrap-date-picker");
+const DatePicker = require('react-bootstrap-date-picker');
+const DataGrid = require('react-datagrid')
+const superagent = require('superagent')
+const Promise = require('bluebird')
 
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
@@ -19,7 +22,8 @@ const PATHS = {
    [
       path.join(__dirname, 'app', 'style','bootstrap.css')
       ,  path.join(__dirname, 'app', 'style','main.css')
-      ,  path.join(__dirname, 'app', 'style','react-select.css')
+      ,  path.join(__dirname, 'node_modules', 'react-select','dist', 'react-select.css')
+      ,  path.join(__dirname, 'node_modules', 'react-datagrid','index.css')
       // , path.join(__dirname, 'app', 'style','fixed-data-table.css')
     ]
 };
@@ -44,6 +48,11 @@ const common = {
         test: /\.jsx?$/,
         loaders: ['babel?cacheDirectory'],
         include: PATHS.app
+      },
+      {
+        test: /\.css$/,
+        loaders: ['style', 'css'],
+        include: PATHS.style
       }
     ]
   },
@@ -69,15 +78,10 @@ if(TARGET === 'start' || !TARGET) {
       host: process.env.HOST,
       port: process.env.PORT
     },
-    module: {
-      loaders: [
-        {
-          test: /\.css$/,
-          loaders: ['style', 'css'],
-          include: PATHS.app
-        }
-      ]
-    },
+    // module: {
+    //   loaders: [
+    //   ]
+    // },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
       new NpmInstallPlugin({

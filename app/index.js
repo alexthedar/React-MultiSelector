@@ -12,4 +12,4 @@ render(
 )
 
 
-//   "plugins": ["transform-remove-console"]
+  // "plugins": ["transform-remove-console"]

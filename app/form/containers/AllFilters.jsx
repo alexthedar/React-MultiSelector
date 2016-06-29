@@ -25,7 +25,6 @@ export default class AllFilters extends Component{
   }
   render(){
     let filtersArray = this.getFiltersArray(this.props.reportInfo.primary_filters);
-    console.log(filtersArray)
     return(
       <div>
         {filtersArray}
