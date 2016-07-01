@@ -2,7 +2,7 @@
 import {CheckBox, RadioButton, DropDown} from '../components/FilterWidgets'
 import update from 'react-addons-update'
 import React, { Component } from 'react'
-import _ from 'lodash'
+import lodash from 'lodash'
 // Mixin attempt
 
 let WrapperEnhance = ComposedComponent => class extends Component{
@@ -19,7 +19,7 @@ let WrapperEnhance = ComposedComponent => class extends Component{
   handleChange(e){
     let val = e.target.name;
     let arr = this.state.valuesArray;
-    _.includes(arr, val)? this.removeValue(arr, val): this.addValue(arr, val);
+    lodash.includes(arr, val)? this.removeValue(arr, val): this.addValue(arr, val);
     console.log(this.state.valuesArray)
   }
   addValue(arr, val){
@@ -29,7 +29,7 @@ let WrapperEnhance = ComposedComponent => class extends Component{
     })
   }
   removeValue(arr, val){
-    let index = _.indexOf(arr, val);
+    let index = lodash.indexOf(arr, val);
     let newArr = update(arr, {$splice: [[index, 1]]})
     this.setState({
       valuesArray: newArr
@@ -37,7 +37,6 @@ let WrapperEnhance = ComposedComponent => class extends Component{
   }
 
   render(){
-    debugger
     return(
       <ComposedComponent
         { ...this.state}

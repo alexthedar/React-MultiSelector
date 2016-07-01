@@ -2,8 +2,6 @@
 
 import React, { Component } from 'react'
 import {CheckBoxWrapper, RadioButtonWrapper, DropDownWrapper, DateWrapper} from './FilterWrappers'
-import _ from 'lodash'
-import update from 'react-addons-update'
 
 
 export default class AllFilters extends Component{

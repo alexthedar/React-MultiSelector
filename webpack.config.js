@@ -1,3 +1,4 @@
+
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
@@ -8,11 +9,13 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const validate = require('webpack-validator');
 const update = require('react-addons-update');
-const _ = require('lodash');
+const lodash = require('lodash');
 const DatePicker = require('react-bootstrap-date-picker');
-const DataGrid = require('react-datagrid')
 const superagent = require('superagent')
 const Promise = require('bluebird')
+
+
+
 
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
@@ -23,8 +26,7 @@ const PATHS = {
       path.join(__dirname, 'app', 'style','bootstrap.css')
       ,  path.join(__dirname, 'app', 'style','main.css')
       ,  path.join(__dirname, 'node_modules', 'react-select','dist', 'react-select.css')
-      ,  path.join(__dirname, 'node_modules', 'react-datagrid','index.css')
-      // , path.join(__dirname, 'app', 'style','fixed-data-table.css')
+      ,  path.join(__dirname, 'node_modules', 'fixed-data-table-2','dist', 'fixed-data-table.css')
     ]
 };
 process.env.BABEL_ENV = TARGET;

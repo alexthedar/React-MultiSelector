@@ -34,26 +34,6 @@ export default class SelectBox extends Component{
     });
   }
 
-  // handleChange(e){
-  //   let val = e.target.value;
-  //   let arr = this.state.selectionValues;
-  //   _.includes(arr, val)? this.removeValue(arr, val): this.addValue(arr, val);
-  // }
-  //
-  // addValue(arr, val){
-  //   let newArr = arr.concat([val]);
-  //   this.setState({
-  //     selectionValues: newArr
-  //   })
-  // }
-  //
-  // removeValue(arr, val){
-  //   let index = _.indexOf(arr, val);
-  //   let newArr = update(arr, {$splice: [[index, 1]]})
-  //   this.setState({
-  //     selectionValues: newArr
-  //   })
-  // }
 
   handleSubmit() {
     if (this.refs.reportFilterForm.isValid()) {
