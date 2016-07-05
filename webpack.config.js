@@ -16,7 +16,6 @@ const Promise = require('bluebird')
 
 
 
-
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
   app: path.join(__dirname, 'app'),

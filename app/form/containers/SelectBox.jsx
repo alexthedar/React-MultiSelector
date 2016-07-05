@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import AllFilters from './AllFilters'
 import _ from 'lodash'
 import update from 'react-addons-update'
-
+import hl7 from './FilterUtil'
 
 // const data = require('../../mockaroodata')
 // LOAD DATA Current in Temp

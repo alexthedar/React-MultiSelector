@@ -1,5 +1,5 @@
 'use strict'
-
+//do i need this or can i just deal directly with the wrappers?
 import React, { Component } from 'react'
 import {CheckBoxWrapper, RadioButtonWrapper, DropDownWrapper, DateWrapper} from './FilterWrappers'
 

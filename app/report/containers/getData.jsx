@@ -15,7 +15,7 @@ function makeSingleRow(obj){
 
 var t = PatientLabs[0]
 makeSingleRow(t)
-console.log(PatientLabs)
+// console.log(PatientLabs)
 
 const fullNameCell = ({rowIndex, data, col, ...props}) => (
   <Cell >
