@@ -1,12 +1,14 @@
+'use strict'
+
 const hl7json = require('json!../../../fakedata/hl7filter.json');
 let hl7 = hl7json
 
 // let siteId = hl7.SiteID;
 // let fitlerName = hl7.FilterName
 // let primaryFilters = hl7.PrimaryFilters
-let secondaryFilters = hl7.SecondaryFilters
+// let secondaryFilters = hl7.SecondaryFilters
 // let userId = hl7.PrimaryFilters[0]
-// let patientId = hl7.PrimaryFilters[1]
+let patientId = hl7.PrimaryFilters[2].options
 // let startDate = hl7.PrimaryFilters[2]
 // let endDate = hl7.PrimaryFilters[3]
 //
@@ -54,64 +56,33 @@ export function fullName(first, last){
 // console.log(endDate)
 // console.log(hl7)
 
-export default hl7
 
 
-function filterSwitch(filterName, filterOptions, returnDatatype, isMulti){
-  let options;
-  switch (filterName) {
-    case 'ResultEnteredByUserID':
-      console.log('ResultEnteredByUserID')
-      options = getResultEnteredByUserIDOptions(filterOptions)
-      break;
-    case 'PatientID':
-      console.log('PatientID')
-      options = getPatientIDOptions(filterOptions)
-      break;
-    case 'StartDate':
-      console.log('StartDate')
-      options = getDate()
-      break;
-    case 'EndDate':
-      console.log('EndDate')
-      options = getDate()
-      break;
-    default:
-      throw new Error('Filter Not Recognized');
+//
+// function getResultEnteredByUserIDOptions(filterOptions){
+//   filterOptions.map((option,index) => {
+//     return fullName(option.Selection.FIRSTNAME, option.Selection.LASTNAME)
+//   })
+// }
+
+var k = ['FIRSTNAME', 'LASTNAME', 'MEDICALRECORDIDENTIFIER'];
+var fo = patientId;
+
+// console.log(getSecondaryOptions(fo))
+
+
+  export function getFilterOptions(filterOptions){
+    return filterOptions.map((option, index) => {
+      return option.Selection
+    })
   }
-  return options;
-}
 
-function getResultEnteredByUserIDOptions(filterOptions){
-  filterOptions.map((option,index) => {
-    return fullName(option.Selection.FIRSTNAME, option.Selection.LASTNAME)
-  })
-}
-
-
-
-function getFilterOptions(filterOptions, keyArray, f){
-  var t = filterOptions.map((option, index) => {
-    for(let i = 0; i < keyArray.length; i++){
-      var x = option.Selection.keyArray[i]
-    }
-  })
-}
-/*
-
-"ResultEnteredByUserID" {
-"KEYID":
-"FIRSTNAME":
-"LASTNAME":
-}
-
-"PatientID"{
-    "FIRSTNAME": ,
-    "KEYID":
-    "LASTNAME":
-    "MEDICALRECORDIDENTIFIER":
-}
-"StartDate"{}
-"EndDate"{}
-
-*/
+  export function getSecondaryOptions(filterOptions){
+    let secondaryFiltersArray = [];
+    filterOptions.map((option, index) => {
+      if (option.SecondaryFilters !== null){
+        secondaryFiltersArray.push(option.SecondaryFilters)
+      }
+    })
+    return secondaryFiltersArray
+  }

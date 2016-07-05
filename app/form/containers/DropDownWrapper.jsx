@@ -1,5 +1,4 @@
 'use strict'
-import {DropDownMultiple} from '../components/FilterWidgets'
 import update from 'react-addons-update'
 import React, { Component } from 'react'
 import Select from 'react-select';

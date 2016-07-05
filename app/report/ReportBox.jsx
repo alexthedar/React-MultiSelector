@@ -1,6 +1,6 @@
 'use strict';
 import React from 'react';
-import FixedDataTable from './getData'
+import FixedDataTable from './containers/getData'
 // import FixedDataTable from './fixed-data-table'
 import Dimensions from 'react-dimensions'
 

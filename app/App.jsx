@@ -2,8 +2,8 @@
 
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import SelectBox from './form/containers/SelectBox.jsx';
-import ReportBox from './report/containers/ReportBox';
+import SelectBox from './form/SelectBox.jsx';
+import ReportBox from './report/ReportBox';
 import NavComponent from './NavComponent';
 
 

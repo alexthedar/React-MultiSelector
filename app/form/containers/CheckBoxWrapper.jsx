@@ -1,5 +1,5 @@
 'use strict'
-import {CheckBox} from '../components/FilterWidgets'
+import {CheckBox} from '../components/CheckBox'
 import update from 'react-addons-update'
 import React, { Component } from 'react'
 import lodash from 'lodash'

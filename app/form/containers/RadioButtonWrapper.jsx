@@ -1,5 +1,5 @@
 'use strict'
-import {RadioButton} from '../components/FilterWidgets'
+import {RadioButton} from '../components/RadioButton'
 import update from 'react-addons-update'
 import React, { Component } from 'react'
 

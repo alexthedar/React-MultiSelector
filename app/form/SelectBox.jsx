@@ -1,15 +1,17 @@
 'use strict'
 
 import React, { Component } from 'react'
-import AllFilters from './AllFilters'
+import AllFilters from './containers/AllFilters'
 import _ from 'lodash'
 import update from 'react-addons-update'
-import hl7 from './FilterUtil'
+import hl7 from './utilities/FilterUtil'
 
-// const data = require('../../mockaroodata')
 // LOAD DATA Current in Temp
-const jsonData = require('json!../../../fakedata/FAKEDATA4.json');
-let DATA = jsonData;
+const reportshl7 = require('json!../../fakedata/hl7filter.json');
+const reportsJSON = require('json!../../fakedata/reportnames.json');
+let FILTERDATA = reportshl7;
+let DATA = reportsJSON;
+console.log(DATA)
 //end load data
 
 export default class SelectBox extends Component{
@@ -19,20 +21,27 @@ export default class SelectBox extends Component{
       reportId: '',
       reportInfo:'',
       showFilters:'',
-      submitted: null
+      submitted: null,
+      selectedArray:[]
     }
     this.dropdownSelect = this.dropdownSelect.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
+
   dropdownSelect(e){
     e.preventDefault();
+    debugger;
     let value = e.currentTarget.value;
     this.setState({
       reportId: value ,
-      showFilters: (DATA[value].primary_filters) ? true : false,
-      reportInfo: DATA[value]
+      primaryFilters: FILTERDATA.PrimaryFilters,
+      secondaryFilters: FILTERDATA.PrimaryFilters
+
+      // showFilters: (DATA[value].primary_filters) ? true : false,
+      // reportInfo: DATA[value]
     });
   }
+
 
 
   handleSubmit() {
@@ -48,7 +57,7 @@ export default class SelectBox extends Component{
                       return  <option
                         key={index}
                         value={index}
-                        >{option.report_name}
+                        >{option.Name}
                       </option>
                     });
   }
