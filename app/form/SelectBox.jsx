@@ -1,17 +1,18 @@
 'use strict'
 
 import React, { Component } from 'react'
-import AllFilters from './containers/AllFilters'
+import FilterForm from './containers/FilterForm'
 import _ from 'lodash'
 import update from 'react-addons-update'
 import hl7 from './utilities/FilterUtil'
+import {buildReturnFilterObject} from './utilities/FilterUtil'
 
 // LOAD DATA Current in Temp
 const reportshl7 = require('json!../../fakedata/hl7filter.json');
 const reportsJSON = require('json!../../fakedata/reportnames.json');
 let FILTERDATA = reportshl7;
 let DATA = reportsJSON;
-console.log(DATA)
+// console.log(FILTERDATA)
 //end load data
 
 export default class SelectBox extends Component{
@@ -19,35 +20,33 @@ export default class SelectBox extends Component{
     super();
     this.state = {
       reportId: '',
-      reportInfo:'',
+      primaryFilters:[],
+      secondaryFilters:[],
       showFilters:'',
       submitted: null,
-      selectedArray:[]
+      returnObject:{}
     }
     this.dropdownSelect = this.dropdownSelect.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  handleSubmit(e) {
+    console.log('submitted')
+    debugger
+    // if (this.refs.reportFilterForm.isValid()) {
+    //   this.setState({submitted: this.refs.reportFilterForm.getFormData()})
+    // }
+  }
+
   dropdownSelect(e){
     e.preventDefault();
-    debugger;
     let value = e.currentTarget.value;
     this.setState({
       reportId: value ,
-      primaryFilters: FILTERDATA.PrimaryFilters,
-      secondaryFilters: FILTERDATA.PrimaryFilters
-
-      // showFilters: (DATA[value].primary_filters) ? true : false,
-      // reportInfo: DATA[value]
+      primaryFilters: FILTERDATA.PrimaryFilters || [],
+      secondaryFilters: FILTERDATA.SecondaryFilters || [],
+      showFilters:true
     });
-  }
-
-
-
-  handleSubmit() {
-    if (this.refs.reportFilterForm.isValid()) {
-      this.setState({submitted: this.refs.reportFilterForm.getFormData()})
-    }
   }
 
   getOptions(data){
@@ -63,34 +62,25 @@ export default class SelectBox extends Component{
   }
 
   getAllFilters(){
-    var t = <div className="well col-sm-8 col-sm-push-1">
+
+    return <div className="well col-sm-8 col-sm-push-1">
             <section>
               <button onClick={this.handleSubmit} className="btn btn-block btn-primary">Submit</button>
             </section>
             <br />
             <section>
-              <AllFilters
+              <FilterForm
                 handleSubmit={this.handleSubmit}
-                reportInfo = {this.state.reportInfo}
-                selectionValues={this.state.selectionValues}
-                onChange={this.handleChange}/>
+                primaryFilters = {this.state.primaryFilters}
+                secondaryFilters = {this.state.secondaryFilters}
+                returnObject={this.state.returnObject}/>
             </section>
           </div>
-          // debugger
-          return t
   }
 
   render(){
-    //temporary
-    if (this.state.submitted !== null) {
-      submitted = <div className="alert alert-success">
-        <p> data:</p>
-        <pre><code>{JSON.stringify(this.state.submitted, null, '  ')}</code></pre>
-      </div>
-    }
-    //end temp
-
-    var submitted, allFilters;
+    var allFilters;
+    // buildReturnFilterObject(FILTERDATA);
     let options = this.getOptions(DATA);
     allFilters = this.state.showFilters ? this.getAllFilters() : '';
 
@@ -105,20 +95,26 @@ export default class SelectBox extends Component{
           </div>
           <div className="row">
               <small className="text-muted">
-                Additional Text: {this.state.showFilters.toString()}
+                Additional Text:
               </small>
           </div>
         </div>
           {allFilters}
         </form>
-        {submitted}
         </div>
     )
   }
 }
 
-//convert string to bool
-function boolConvert(data){
-  let isTrue = (data === 'true');
-  return isTrue;
-}
+
+
+
+// {submitted}
+//temporary
+// if (this.state.submitted !== null) {
+//   submitted = <div className="alert alert-success">
+//     <p> data:</p>
+//     <pre><code>{JSON.stringify(this.state.submitted, null, '  ')}</code></pre>
+//   </div>
+// }
+//end temp

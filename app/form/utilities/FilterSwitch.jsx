@@ -1,9 +1,9 @@
 'use strict'
 import React, { Component } from 'react'
-import PatientIDFilter from './PatientIDFilter'
+import PatientIDFilter from '../filters/PatientIDFilter'
 
 
-function filterSwitch(filterName, filterOptions, isMulti){
+export function filterSwitch(filterName, filterOptions, isMulti){
   let options;
   switch (filterName) {
     case 'ResultEnteredByUserID':
@@ -11,8 +11,11 @@ function filterSwitch(filterName, filterOptions, isMulti){
       // options = getResultEnteredByUserIDOptions(filterOptions)
       break;
     case 'PatientID':
-      var t = <PatientIDFilter isMulti={isMulti} filterOptions={filterOptions} />
-      debugger
+    console.log('PatientID')
+      return <PatientIDFilter isMulti={isMulti} filterOptions={filterOptions} />
+      break;
+    case 'UserID':
+      console.log('userid')
       break;
     case 'StartDate':
       console.log('StartDate')
